@@ -1,0 +1,36 @@
+.google-places-autocomplete {
+  width: 100%;
+  position: relative;
+}
+
+.google-places-autocomplete__input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  margin-bottom: 2px;
+}
+
+.google-places-autocomplete__input:active,
+.google-places-autocomplete__input:focus,
+.google-places-autocomplete__input:hover {
+  outline: none;
+  border: none;
+}
+
+.google-places-autocomplete__suggestions-container {
+  background: white;
+  border-radius: 0 0 5px 5px;
+  color: black;
+  position: absolute;
+  width: 100%;
+}
+
+.google-places-autocomplete__suggestion {
+  font-size: 1rem;
+  text-align: left;
+  padding: 10px;
+}
+
+.google-places-autocomplete__suggestion--active {
+  background: #e0e3e7;
+}
