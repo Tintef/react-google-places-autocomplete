@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,12 @@
     "url": "https://github.com/Tintef/react-google-places-autocomplete/issues"
   },
   "homepage": "https://github.com/Tintef/react-google-places-autocomplete#readme",
+  "keywords": [
+    "react",
+    "google-places",
+    "places",
+    "autocomplete"
+  ],
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^10.0.1",

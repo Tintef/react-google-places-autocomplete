@@ -19,6 +19,7 @@ class GooglePlacesAutocomplete extends Component {
 
     this.state = {
       activeSuggestion: null,
+      hasSelected: false,
       loading: false,
       placesServiceStatus: null,
       suggestions: [],
@@ -28,8 +29,10 @@ class GooglePlacesAutocomplete extends Component {
     this.changeValue = this.changeValue.bind(this);
     this.changeActiveSuggestion = this.changeActiveSuggestion.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
+    this.clickListener = this.clickListener.bind(this);
     this.fetchSuggestionsCallback = this.fetchSuggestionsCallback.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleOnBlur = this.handleOnBlur.bind(this);
     this.initalizeService = this.initializeService.bind(this);
     this.onSuggestionSelect = this.onSuggestionSelect.bind(this);
     this.renderInput = this.renderInput.bind(this);
@@ -38,6 +41,20 @@ class GooglePlacesAutocomplete extends Component {
 
   componentDidMount() {
     this.initalizeService();
+
+    document.addEventListener('click', this.clickListener);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.clickListener);
+  }
+
+  clickListener(event) {
+    if (event.target.id.includes('google-places-autocomplete')) {
+      return;
+    }
+
+    this.handleOnBlur();
   }
 
   changeValue(value) {
@@ -51,22 +68,16 @@ class GooglePlacesAutocomplete extends Component {
   }
 
   initializeService() {
-    const { debug } = this.props;
-
     if (!window.google) {
       console.error('[react-google-places-autocomplete]: Google script not loaded');
-      if (!debug) {
-        setTimeout(() => { this.initalizeService(); }, 1000);
-      }
+      setTimeout(() => { this.initalizeService(); }, 1000);
 
       return;
     }
 
     if (!window.google.maps.places) {
       console.error('[react-google-places-autocomplete]: Google maps places script not loaded');
-      if (!debug) {
-        setTimeout(() => { this.initializeService(); }, 1000);
-      }
+      setTimeout(() => { this.initializeService(); }, 1000);
 
       return;
     }
@@ -85,17 +96,32 @@ class GooglePlacesAutocomplete extends Component {
       props: {
         inputClassName,
         inputStyle,
+        placeholder,
+        renderInput,
       },
     } = this;
+
+    if (renderInput) {
+      return renderInput({
+        id: 'google-places-autcomplete-input',
+        value,
+        onChange: ({ target }) => this.changeValue(target.value),
+        onKeyDown: this.handleKeyDown,
+        type: 'text',
+        placeholder,
+      });
+    }
 
     return (
       <input
         className={inputClassName || 'google-places-autocomplete__input'}
-        style={inputStyle}
-        value={value}
+        id="google-places-autocomplete-input"
         onChange={({ target }) => this.changeValue(target.value)}
-        type="text"
         onKeyDown={this.handleKeyDown}
+        placeholder={placeholder}
+        style={inputStyle}
+        type="text"
+        value={value}
       />
     );
   }
@@ -107,6 +133,7 @@ class GooglePlacesAutocomplete extends Component {
         suggestions,
       },
       props: {
+        renderSuggestions,
         suggestionsClassNames,
         suggestionsStyles,
       },
@@ -116,18 +143,28 @@ class GooglePlacesAutocomplete extends Component {
       return null;
     }
 
+    if (renderSuggestions) {
+      return renderSuggestions(
+        activeSuggestion,
+        suggestions,
+        this.onSuggestionsSelect,
+      );
+    }
+
     return (
       <div
+        id="google-places-suggestions-container"
         className={suggestionsClassNames.container || 'google-places-autocomplete__suggestions-container'}
         style={suggestionsStyles.container}
       >
         {
           suggestions.map((suggestion, index) => (
             <div
+              id={`google-places-autocomplete-suggestion--${index}`}
               key={suggestion.id}
               className={`${suggestionsClassNames.suggestion || 'google-places-autocomplete__suggestion'} ${activeSuggestion === index ? suggestionsClassNames.suggestionActive || 'google-places-autocomplete__suggestion--active' : ''}`}
               style={suggestionsStyles.suggestion}
-              onClick={() => this.onSuggestionSelect(suggestion)}
+              onClick={(event) => this.onSuggestionSelect(suggestion, event)}
               role="presentation"
             >
               {suggestion.description}
@@ -154,13 +191,18 @@ class GooglePlacesAutocomplete extends Component {
     );
   }
 
-  onSuggestionSelect(suggestion) {
+  onSuggestionSelect(suggestion, ev = null) {
+    if (ev) {
+      ev.stopPropagation();
+    }
+
     const {
       onSelect,
     } = this.props;
 
     this.setState({
       activeSuggestion: null,
+      hasSelected: true,
       suggestions: [],
       value: suggestion.description,
     });
@@ -169,11 +211,13 @@ class GooglePlacesAutocomplete extends Component {
 
   fetchSuggestionsCallback(suggestions, status) {
     const { placesServiceStatus } = this.state;
+
     if (status !== placesServiceStatus) {
       // show error
     }
 
     this.setState({
+      hasSelected: false,
       loading: false,
       suggestions: suggestions || [],
     });
@@ -184,7 +228,6 @@ class GooglePlacesAutocomplete extends Component {
 
     switch (event.key) {
       case 'Enter':
-        console.log('Enteeeer');
         if (activeSuggestion !== null) {
           this.onSuggestionSelect(suggestions[activeSuggestion]);
         }
@@ -202,9 +245,29 @@ class GooglePlacesAutocomplete extends Component {
     }
   }
 
+  handleOnBlur() {
+    const {
+      state: {
+        hasSelected,
+        value,
+      },
+      props: {
+        onSelect,
+      },
+    } = this;
+
+    if (hasSelected) {
+      return;
+    }
+
+    this.clearSuggestions();
+    onSelect({ description: value });
+  }
+
   clearSuggestions() {
     this.setState({
       activeSuggestion: null,
+      hasSelected: false,
       suggestions: [],
     });
   }
@@ -259,14 +322,17 @@ class GooglePlacesAutocomplete extends Component {
 
 GooglePlacesAutocomplete.propTypes = {
   debounce: PropTypes.number,
-  debug: PropTypes.bool,
   inputClassName: PropTypes.string,
   inputStyle: PropTypes.object,
   loader: PropTypes.node,
   onSelect: PropTypes.func,
+  placeholder: PropTypes.string,
+  renderInput: PropTypes.func,
+  renderSuggestions: PropTypes.func,
   suggestionsClassNames: PropTypes.shape({
     container: PropTypes.string,
     suggestion: PropTypes.string,
+    suggestionActive: PropTypes.string,
   }),
   suggestionsStyles: PropTypes.shape({
     container: PropTypes.object,
@@ -276,14 +342,17 @@ GooglePlacesAutocomplete.propTypes = {
 
 GooglePlacesAutocomplete.defaultProps = {
   debounce: 300,
-  debug: false,
   inputClassName: '',
-  inputStyle: '',
+  inputStyle: {},
   loader: null,
   onSelect: () => {},
+  placeholder: 'Address',
+  renderInput: undefined,
+  renderSuggestions: undefined,
   suggestionsClassNames: {
     container: '',
     suggestion: '',
+    suggestionActive: '',
   },
   suggestionsStyles: {
     container: {},
