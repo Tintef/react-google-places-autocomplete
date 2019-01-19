@@ -37,6 +37,7 @@ Note: this is the simplest way to use the component.
 | Prop                  | Type     | Required | Default    |
 |-----------------------|----------|----------|------------|
 | debounce              | number   |          | 300        |
+| initialValue          | string   |          | ''         |
 | inputClassName        | string   |          | ''         |
 | inputStyle            | object   |          | {}         |
 | loader                | node     |          | null       |
@@ -51,6 +52,21 @@ Note: this is the simplest way to use the component.
 ### debounce
 
 The number of milliseconds to delay before making a call to Google Maps API.
+
+### initialValue
+
+Initial value for the input.
+
+Example:
+```js
+...
+
+  <GooglePlacesAutocomplete
+    initialValue="Main St. 101"
+  />
+
+...
+```
 
 ### inputClassName
 
