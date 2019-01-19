@@ -23,7 +23,7 @@ class GooglePlacesAutocomplete extends Component {
       loading: false,
       placesServiceStatus: null,
       suggestions: [],
-      value: '',
+      value: props.initialValue,
     };
 
     this.changeValue = this.changeValue.bind(this);
@@ -43,6 +43,12 @@ class GooglePlacesAutocomplete extends Component {
     this.initalizeService();
 
     document.addEventListener('click', this.clickListener);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialValue) {
+      this.setState({ value: nextProps.initialValue });
+    }
   }
 
   componentWillUnmount() {
@@ -103,6 +109,7 @@ class GooglePlacesAutocomplete extends Component {
 
     if (renderInput) {
       return renderInput({
+        autoComplete: 'off',
         id: 'google-places-autcomplete-input',
         value,
         onChange: ({ target }) => this.changeValue(target.value),
@@ -114,6 +121,7 @@ class GooglePlacesAutocomplete extends Component {
 
     return (
       <input
+        autoComplete="off"
         className={inputClassName || 'google-places-autocomplete__input'}
         id="google-places-autocomplete-input"
         onChange={({ target }) => this.changeValue(target.value)}
@@ -228,6 +236,7 @@ class GooglePlacesAutocomplete extends Component {
 
     switch (event.key) {
       case 'Enter':
+        event.preventDefault();
         if (activeSuggestion !== null) {
           this.onSuggestionSelect(suggestions[activeSuggestion]);
         }
@@ -322,6 +331,7 @@ class GooglePlacesAutocomplete extends Component {
 
 GooglePlacesAutocomplete.propTypes = {
   debounce: PropTypes.number,
+  initialValue: PropTypes.string,
   inputClassName: PropTypes.string,
   inputStyle: PropTypes.object,
   loader: PropTypes.node,
@@ -342,6 +352,7 @@ GooglePlacesAutocomplete.propTypes = {
 
 GooglePlacesAutocomplete.defaultProps = {
   debounce: 300,
+  initialValue: '',
   inputClassName: '',
   inputStyle: {},
   loader: null,

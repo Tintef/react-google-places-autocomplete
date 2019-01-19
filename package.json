@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "1.1.1",
+  "version": "1.2.2",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "dist/index.js",
   "scripts": {

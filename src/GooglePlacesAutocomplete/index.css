@@ -8,6 +8,7 @@
   padding: 10px;
   border: none;
   margin-bottom: 2px;
+  box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.09);
 }
 
 .google-places-autocomplete__input:active,
@@ -23,6 +24,8 @@
   color: black;
   position: absolute;
   width: 100%;
+  z-index: 2;
+  box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.09);
 }
 
 .google-places-autocomplete__suggestion {
