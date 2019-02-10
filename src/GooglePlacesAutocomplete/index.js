@@ -29,7 +29,6 @@ class GooglePlacesAutocomplete extends Component {
     this.changeValue = this.changeValue.bind(this);
     this.changeActiveSuggestion = this.changeActiveSuggestion.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
-    this.clickListener = this.clickListener.bind(this);
     this.fetchSuggestionsCallback = this.fetchSuggestionsCallback.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleOnBlur = this.handleOnBlur.bind(this);
@@ -41,26 +40,12 @@ class GooglePlacesAutocomplete extends Component {
 
   componentDidMount() {
     this.initalizeService();
-
-    document.addEventListener('click', this.clickListener);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.initialValue) {
       this.setState({ value: nextProps.initialValue });
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.clickListener);
-  }
-
-  clickListener(event) {
-    if (event.target.id.includes('google-places-autocomplete')) {
-      return;
-    }
-
-    this.handleOnBlur();
   }
 
   changeValue(value) {
@@ -112,6 +97,7 @@ class GooglePlacesAutocomplete extends Component {
         autoComplete: 'off',
         id: 'google-places-autcomplete-input',
         value,
+        onBlur: this.handleOnBlur,
         onChange: ({ target }) => this.changeValue(target.value),
         onKeyDown: this.handleKeyDown,
         type: 'text',
@@ -124,6 +110,7 @@ class GooglePlacesAutocomplete extends Component {
         autoComplete="off"
         className={inputClassName || 'google-places-autocomplete__input'}
         id="google-places-autocomplete-input"
+        onBlur={this.handleOnBlur}
         onChange={({ target }) => this.changeValue(target.value)}
         onKeyDown={this.handleKeyDown}
         placeholder={placeholder}
