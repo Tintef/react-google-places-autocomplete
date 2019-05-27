@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-export const debounce = (callback, timeout) => {
+const debounce = (callback, timeout) => {
   let d, e;
   return function () {
     function helper() {
@@ -9,4 +9,6 @@ export const debounce = (callback, timeout) => {
     const thisRef = this, argumentsRef = arguments;
     return clearTimeout(d), d = setTimeout(helper, timeout), !d && (e = callback.apply(thisRef, argumentsRef)), e;
   }
-}
+};
+
+export default debounce;

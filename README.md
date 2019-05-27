@@ -36,6 +36,7 @@ Note: this is the simplest way to use the component.
 
 | Prop                  | Type     | Required | Default    |
 |-----------------------|----------|----------|------------|
+| autocompletionRequest | object   |          | {}         |
 | debounce              | number   |          | 300        |
 | initialValue          | string   |          | ''         |
 | inputClassName        | string   |          | ''         |
@@ -48,6 +49,61 @@ Note: this is the simplest way to use the component.
 | suggestionsClassNames | shape    |          | `{ container: '', suggestion: '', suggestionActive: '' }` |
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
 
+
+### autocompletionRequest
+
+Autocompletion request object to add restrictions to the search. Let's see the shape this prop can take:
+
+```js
+autocompletionRequest = {
+  bounds: Array<LatLng>,
+  componentRestrictions: {
+    country: String | Array<String>
+  },
+  location: LatLng,
+  offset: Number,
+  radius: Number,
+  types: Array<String>,
+}
+```
+
+Where:
+
+- `LatLng` is an object like `{ lat: Number, lng: Number }`.
+- bounds is an array of lenght 2, where the first value is the south west coordinate and the last one is the north east coordinate.
+- country is one from [ISO 3166-1 Alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). For example, 'us', 'ca', or 'uy'. You can provide a single one, or an array of up to five country code strings.
+
+Eaxmples:
+```js
+...
+
+  <GooglePlacesAutocomplete
+    autocompletionRequest={{
+      bounds: [
+        { lat: 50, lng: 50 },
+        { lat: 100, lng: 100 }
+      ],
+    }}
+  />
+
+...
+```
+
+```js
+...
+
+  <GooglePlacesAutocomplete
+    autocompletionRequest={{
+      componentRestrictions: {
+        country: ['us', 'ca', 'uy'],
+      }
+    }}
+  />
+
+...
+```
+
+Note: for more information check [google documentation](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest).
 
 ### debounce
 
