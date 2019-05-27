@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { debounce } from '../utils';
+import debounce from '../utils/debounce';
+import {
+  autocompletionRequestType,
+  suggestionClassNamesType,
+  suggestionStylesType,
+} from '../utils/customPropTypes';
 import './index.css';
 
 class GooglePlacesAutocomplete extends Component {
   fetchSuggestions = debounce((value) => {
+    const { autocompletionRequest } = this.props;
+
+    let bounds = undefined;
+    if (autocompletionRequest.bounds) {
+      bounds = new google.maps.LatLngBounds(...autocompletionRequest.bounds);
+    }
+
     this.setState({ loading: true });
     this.placesService.getPlacePredictions(
       {
+        ...autocompletionRequest,
+        bounds,
         input: value,
       },
       this.fetchSuggestionsCallback,
@@ -26,12 +40,12 @@ class GooglePlacesAutocomplete extends Component {
       value: props.initialValue,
     };
 
-    this.changeValue = this.changeValue.bind(this);
     this.changeActiveSuggestion = this.changeActiveSuggestion.bind(this);
+    this.changeValue = this.changeValue.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
     this.fetchSuggestionsCallback = this.fetchSuggestionsCallback.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleOnBlur = this.handleOnBlur.bind(this);
     this.initalizeService = this.initializeService.bind(this);
     this.onSuggestionSelect = this.onSuggestionSelect.bind(this);
     this.renderInput = this.renderInput.bind(this);
@@ -40,11 +54,22 @@ class GooglePlacesAutocomplete extends Component {
 
   componentDidMount() {
     this.initalizeService();
+    document.addEventListener('click', this.handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClick);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.initialValue) {
       this.setState({ value: nextProps.initialValue });
+    }
+  }
+
+  handleClick(ev) {
+    if (!ev.target.id.includes('google-places-autocomplete')) {
+      this.clearSuggestions();
     }
   }
 
@@ -74,6 +99,7 @@ class GooglePlacesAutocomplete extends Component {
     }
 
     this.placesService = new window.google.maps.places.AutocompleteService();
+    window.coso = this.placesService;
     this.setState({
       placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK,
     });
@@ -95,9 +121,8 @@ class GooglePlacesAutocomplete extends Component {
     if (renderInput) {
       return renderInput({
         autoComplete: 'off',
-        id: 'google-places-autcomplete-input',
+        id: 'google-places-autocomplete-input',
         value,
-        onBlur: this.handleOnBlur,
         onChange: ({ target }) => this.changeValue(target.value),
         onKeyDown: this.handleKeyDown,
         type: 'text',
@@ -110,7 +135,6 @@ class GooglePlacesAutocomplete extends Component {
         autoComplete="off"
         className={inputClassName || 'google-places-autocomplete__input'}
         id="google-places-autocomplete-input"
-        onBlur={this.handleOnBlur}
         onChange={({ target }) => this.changeValue(target.value)}
         onKeyDown={this.handleKeyDown}
         placeholder={placeholder}
@@ -203,6 +227,7 @@ class GooglePlacesAutocomplete extends Component {
       suggestions: [],
       value: suggestion.description,
     });
+
     onSelect(suggestion);
   }
 
@@ -241,25 +266,6 @@ class GooglePlacesAutocomplete extends Component {
         break;
       default:
     }
-  }
-
-  handleOnBlur() {
-    const {
-      state: {
-        hasSelected,
-        value,
-      },
-      props: {
-        onSelect,
-      },
-    } = this;
-
-    if (hasSelected) {
-      return;
-    }
-
-    this.clearSuggestions();
-    onSelect({ description: value });
   }
 
   clearSuggestions() {
@@ -319,6 +325,7 @@ class GooglePlacesAutocomplete extends Component {
 }
 
 GooglePlacesAutocomplete.propTypes = {
+  autocompletionRequest: autocompletionRequestType,
   debounce: PropTypes.number,
   initialValue: PropTypes.string,
   inputClassName: PropTypes.string,
@@ -328,18 +335,12 @@ GooglePlacesAutocomplete.propTypes = {
   placeholder: PropTypes.string,
   renderInput: PropTypes.func,
   renderSuggestions: PropTypes.func,
-  suggestionsClassNames: PropTypes.shape({
-    container: PropTypes.string,
-    suggestion: PropTypes.string,
-    suggestionActive: PropTypes.string,
-  }),
-  suggestionsStyles: PropTypes.shape({
-    container: PropTypes.object,
-    suggestion: PropTypes.object,
-  }),
+  suggestionsClassNames: suggestionClassNamesType,
+  suggestionsStyles: suggestionStylesType,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
+  autocompletionRequest: {},
   debounce: 300,
   initialValue: '',
   inputClassName: '',
