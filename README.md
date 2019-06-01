@@ -73,7 +73,7 @@ Where:
 - bounds is an array of lenght 2, where the first value is the south west coordinate and the last one is the north east coordinate.
 - country is one from [ISO 3166-1 Alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). For example, 'us', 'ca', or 'uy'. You can provide a single one, or an array of up to five country code strings.
 
-Eaxmples:
+Examples:
 ```js
 ...
 

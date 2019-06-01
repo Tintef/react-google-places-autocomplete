@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 const latLngBoundsType = (props, propName, componentName) => {
   const prop = props[propName];
 
+  if (!prop) {
+    return null;
+  }
+
   if (Array.isArray(prop) && prop.length === 2
     && prop.every(value => (
       Object.keys(value).length === 2
