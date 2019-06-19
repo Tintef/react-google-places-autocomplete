@@ -251,3 +251,97 @@ Example:
   },
 }
 ```
+
+## Utility Functions
+
+* [`geocodeByAddress`](#geocode-by-address)
+* [`geocodeByPlaceId`](#geocode-by-place-id)
+* [`getLatLng`](#get-lat-lng)
+
+<a name="geocode-by-address"></a>
+
+### `geocodeByAddress` API
+
+```js
+/**
+ * Returns a promise
+ * @param {String} address
+ * @return {Promise}
+ */
+geocodeByAddress(address);
+```
+
+#### address
+
+Type: `String`,
+Required: `true`
+
+String that gets passed to Google Maps [Geocoder](https://developers.google.com/maps/documentation/javascript/geocoding)
+
+```js
+import { geocodeByAddress } from 'react-places-autocomplete';
+
+// `results` is an entire payload from Google API.
+geocodeByAddress('Mohali, Punjab')
+  .then(results => console.log(results))
+  .catch(error => console.error(error));
+```
+
+<a name="geocode-by-place-id"></a>
+
+### `geocodeByPlaceId` API
+
+```js
+/**
+ * Returns a promise
+ * @param {String} placeId
+ * @return {Promise}
+ */
+geocodeByPlaceId(placeId);
+```
+
+#### placeId
+
+Type: `String`,
+Required: `true`
+
+String that gets passed to Google Maps [Geocoder](https://developers.google.com/maps/documentation/javascript/geocoding)
+
+```js
+import { geocodeByPlaceId } from 'react-places-autocomplete';
+
+// `results` is an entire payload from Google API.
+geocodeByPlaceId('ChIJH_imbZDuDzkR2AjlbPGYKVE')
+  .then(results => console.log(results))
+  .catch(error => console.error(error));
+```
+
+<a name="get-lat-lng"></a>
+
+### `getLatLng` API
+
+```js
+/**
+ * Returns a promise
+ * @param {Object} result
+ * @return {Promise}
+ */
+getLatLng(result);
+```
+
+#### result
+
+Type: `Object`
+Required: `true`
+
+One of the element from `results` (returned from Google Maps Geocoder)
+
+```js
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
+geocodeByAddress('Mohali, Punjab')
+  .then(results => getLatLng(results[0]))
+  .then(({ lat, lng }) =>
+    console.log('Successfully got latitude and longitude', { lat, lng })
+  );
+```
