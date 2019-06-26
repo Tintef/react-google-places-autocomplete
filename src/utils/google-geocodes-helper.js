@@ -17,7 +17,7 @@ export const getLatLng = result => {
     try {
       const latLng = {
         lat: result.geometry.location.lat(),
-        lng: result.geometry.location.lng()
+        lng: result.geometry.location.lng(),
       };
       return resolve(latLng);
     } catch (e) {
