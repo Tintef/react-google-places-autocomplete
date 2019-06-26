@@ -334,7 +334,7 @@ getLatLng(result);
 Type: `Object`
 Required: `true`
 
-One of the element from `results` (returned from Google Maps Geocoder)
+One of the elements from `results` (returned from Google Maps Geocoder)
 
 ```js
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
