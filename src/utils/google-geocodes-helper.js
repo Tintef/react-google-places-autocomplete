@@ -5,9 +5,9 @@ export const geocodeByAddress = address => {
   return new Promise((resolve, reject) => {
     geocoder.geocode({ address }, (results, status) => {
       if (status !== OK) {
-        reject(status);
+        return reject(status);
       }
-      resolve(results);
+      return resolve(results);
     });
   });
 };
@@ -19,9 +19,9 @@ export const getLatLng = result => {
         lat: result.geometry.location.lat(),
         lng: result.geometry.location.lng()
       };
-      resolve(latLng);
+      return resolve(latLng);
     } catch (e) {
-      reject(e);
+      return reject(e);
     }
   });
 };
@@ -33,9 +33,9 @@ export const geocodeByPlaceId = placeId => {
   return new Promise((resolve, reject) => {
     geocoder.geocode({ placeId }, (results, status) => {
       if (status !== OK) {
-        reject(status);
+        return reject(status);
       }
-      resolve(results);
+      return resolve(results);
     });
   });
 };
