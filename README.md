@@ -287,6 +287,24 @@ geocodeByAddress('Mohali, Punjab')
   .catch(error => console.error(error));
 ```
 
+```js
+
+Let's see the shape of results return by geocodeByAddress
+
+results = [{
+  address_components:Array<Object>,
+  formatted_address: String,
+  geometry: {
+    bounds: LatLngBounds,
+    location: LatLng,
+    location_type: String,
+    viewport: LatLngBounds,
+  },
+  place_id: String,
+  types: Array<String>,
+}]
+```
+
 <a name="geocode-by-place-id"></a>
 
 ### `geocodeByPlaceId` API
@@ -314,6 +332,24 @@ import { geocodeByPlaceId } from 'react-places-autocomplete';
 geocodeByPlaceId('ChIJH_imbZDuDzkR2AjlbPGYKVE')
   .then(results => console.log(results))
   .catch(error => console.error(error));
+```
+
+```js
+
+Let's see the shape of results return by gecocodeByPlaceId
+
+results = [{
+  address_components: Array<Object>,
+  formatted_address: String,
+  geometry: {
+    bounds: LatLngBounds,
+    location: LatLng,
+    location_type: String,
+    viewport: LatLngBounds,
+  },
+  place_id: String,
+  types: Array<String>,
+}]
 ```
 
 <a name="get-lat-lng"></a>
@@ -344,4 +380,15 @@ geocodeByAddress('Mohali, Punjab')
   .then(({ lat, lng }) =>
     console.log('Successfully got latitude and longitude', { lat, lng })
   );
+```
+
+
+```js
+
+Let's see the shape of result return by getLatLng
+
+result = {
+  lat: Number,
+  lng: Number,
+}
 ```
