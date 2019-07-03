@@ -279,7 +279,7 @@ Required: `true`
 String that gets passed to Google Maps [Geocoder](https://developers.google.com/maps/documentation/javascript/geocoding)
 
 ```js
-import { geocodeByAddress } from 'react-places-autocomplete';
+import { geocodeByAddress } from 'react-google-places-autocomplete';
 
 // `results` is an entire payload from Google API.
 geocodeByAddress('Mohali, Punjab')
@@ -326,7 +326,7 @@ Required: `true`
 String that gets passed to Google Maps [Geocoder](https://developers.google.com/maps/documentation/javascript/geocoding)
 
 ```js
-import { geocodeByPlaceId } from 'react-places-autocomplete';
+import { geocodeByPlaceId } from 'react-google-places-autocomplete';
 
 // `results` is an entire payload from Google API.
 geocodeByPlaceId('ChIJH_imbZDuDzkR2AjlbPGYKVE')
@@ -373,7 +373,7 @@ Required: `true`
 One of the elements from `results` (returned from Google Maps Geocoder)
 
 ```js
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 geocodeByAddress('Mohali, Punjab')
   .then(results => getLatLng(results[0]))
