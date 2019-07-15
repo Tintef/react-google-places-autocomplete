@@ -115,6 +115,7 @@ class GooglePlacesAutocomplete extends Component {
         inputStyle,
         placeholder,
         renderInput,
+        required
       },
     } = this;
 
@@ -141,6 +142,7 @@ class GooglePlacesAutocomplete extends Component {
         style={inputStyle}
         type="text"
         value={value}
+        required={required}
       />
     );
   }
@@ -337,6 +339,7 @@ GooglePlacesAutocomplete.propTypes = {
   renderSuggestions: PropTypes.func,
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
+  required: PropTypes.bool
 };
 
 GooglePlacesAutocomplete.defaultProps = {
@@ -359,6 +362,7 @@ GooglePlacesAutocomplete.defaultProps = {
     container: {},
     suggestion: {},
   },
+  required: false
 };
 
 export default GooglePlacesAutocomplete;
