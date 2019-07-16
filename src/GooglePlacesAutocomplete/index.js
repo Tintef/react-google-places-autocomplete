@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import autocompletionRequestBuilder from '../utils/autocompletionRequestBuilder';
 import debounce from '../utils/debounce';
 import {
   autocompletionRequestType,
@@ -12,16 +13,10 @@ class GooglePlacesAutocomplete extends Component {
   fetchSuggestions = debounce((value) => {
     const { autocompletionRequest } = this.props;
 
-    let bounds = undefined;
-    if (autocompletionRequest.bounds) {
-      bounds = new google.maps.LatLngBounds(...autocompletionRequest.bounds);
-    }
-
     this.setState({ loading: true });
     this.placesService.getPlacePredictions(
       {
-        ...autocompletionRequest,
-        bounds,
+        ...autocompletionRequestBuilder(autocompletionRequest),
         input: value,
       },
       this.fetchSuggestionsCallback,
@@ -99,7 +94,6 @@ class GooglePlacesAutocomplete extends Component {
     }
 
     this.placesService = new window.google.maps.places.AutocompleteService();
-    window.coso = this.placesService;
     this.setState({
       placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK,
     });
