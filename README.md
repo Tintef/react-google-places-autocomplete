@@ -48,6 +48,7 @@ Note: this is the simplest way to use the component.
 | renderSuggestions     | function |          | undefined  |
 | suggestionsClassNames | shape    |          | `{ container: '', suggestion: '', suggestionActive: '' }` |
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
+| required              | boolean  |          | false      |
 
 
 ### autocompletionRequest
