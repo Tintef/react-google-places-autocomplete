@@ -333,7 +333,7 @@ GooglePlacesAutocomplete.propTypes = {
   renderSuggestions: PropTypes.func,
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
@@ -356,7 +356,7 @@ GooglePlacesAutocomplete.defaultProps = {
     container: {},
     suggestion: {},
   },
-  required: false
+  required: false,
 };
 
 export default GooglePlacesAutocomplete;
