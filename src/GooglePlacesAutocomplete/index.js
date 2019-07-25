@@ -122,7 +122,7 @@ class GooglePlacesAutocomplete extends Component {
         onKeyDown: this.handleKeyDown,
         type: 'text',
         placeholder,
-        required={required}
+        required={required},
       });
     }
 
