@@ -7,6 +7,9 @@
     "jest": true,
     "es6": true
   },
+  "globals": {
+    "google",
+  },
   "plugins": [
     "react",
   ],
@@ -59,6 +62,7 @@
     "no-return-assign": [
       2,
       "except-parens"
-    ]
+    ],
+    "react/sort-comp": 0
   }
 }

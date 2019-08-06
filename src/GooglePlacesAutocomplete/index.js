@@ -21,14 +21,13 @@ class GooglePlacesAutocomplete extends Component {
       },
       this.fetchSuggestionsCallback,
     );
-  }, this.props.debounce);
+  }, this.props.debounce); // eslint-disable-line react/destructuring-assignment
 
   constructor(props) {
     super(props);
 
     this.state = {
       activeSuggestion: null,
-      hasSelected: false,
       loading: false,
       placesServiceStatus: null,
       suggestions: [],
@@ -80,21 +79,21 @@ class GooglePlacesAutocomplete extends Component {
 
   initializeService() {
     if (!window.google) {
-      console.error('[react-google-places-autocomplete]: Google script not loaded');
+      console.error('[react-google-places-autocomplete]: Google script not loaded'); // eslint-disable-line no-console
       setTimeout(() => { this.initalizeService(); }, 1000);
 
       return;
     }
 
     if (!window.google.maps) {
-      console.error('[react-google-places-autocomplete]: Google maps script not loaded');
+      console.error('[react-google-places-autocomplete]: Google maps script not loaded'); // eslint-disable-line no-console
       setTimeout(() => { this.initalizeService(); }, 1000);
 
       return;
     }
 
     if (!window.google.maps.places) {
-      console.error('[react-google-places-autocomplete]: Google maps places script not loaded');
+      console.error('[react-google-places-autocomplete]: Google maps places script not loaded'); // eslint-disable-line no-console
       setTimeout(() => { this.initializeService(); }, 1000);
 
       return;
@@ -129,7 +128,7 @@ class GooglePlacesAutocomplete extends Component {
         onKeyDown: this.handleKeyDown,
         type: 'text',
         placeholder,
-        required={required},
+        required,
       });
     }
 
@@ -226,7 +225,6 @@ class GooglePlacesAutocomplete extends Component {
 
     this.setState({
       activeSuggestion: null,
-      hasSelected: true,
       suggestions: [],
       value: suggestion.description,
     });
@@ -242,7 +240,6 @@ class GooglePlacesAutocomplete extends Component {
     }
 
     this.setState({
-      hasSelected: false,
       loading: false,
       suggestions: suggestions || [],
     });
@@ -274,7 +271,6 @@ class GooglePlacesAutocomplete extends Component {
   clearSuggestions() {
     this.setState({
       activeSuggestion: null,
-      hasSelected: false,
       suggestions: [],
     });
   }

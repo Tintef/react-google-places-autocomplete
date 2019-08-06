@@ -8,19 +8,19 @@ const latLngBoundsType = (props, propName, componentName) => {
   }
 
   if (Array.isArray(prop) && prop.length === 2
-    && prop.every(value => (
+    && prop.every((value) => (
       Object.keys(value).length === 2
-      && value.hasOwnProperty('lat') && value.hasOwnProperty('lng')
+      && value.hasOwnProperty('lat') && value.hasOwnProperty('lng') // eslint-disable-line no-prototype-builtins
       && Number.isInteger(value.lat) && Number.isInteger(value.lng)
     ))
   ) {
     return null;
   }
-  
+
   return new Error(
     `Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed.`
   );
-}
+};
 
 const componentRestrictionsType = PropTypes.shape({
   country: PropTypes.oneOfType([
