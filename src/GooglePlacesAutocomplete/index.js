@@ -87,7 +87,7 @@ class GooglePlacesAutocomplete extends Component {
     }
 
     if (!window.google.maps) {
-      console.error('[react-google-places-autocomplete]: Google script maps not loaded');
+      console.error('[react-google-places-autocomplete]: Google maps script not loaded');
       setTimeout(() => { this.initalizeService(); }, 1000);
 
       return;
