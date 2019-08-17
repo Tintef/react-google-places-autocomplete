@@ -168,7 +168,7 @@ class GooglePlacesAutocomplete extends Component {
       return renderSuggestions(
         activeSuggestion,
         suggestions,
-        this.onSuggestionsSelect,
+        this.onSuggestionSelect,
       );
     }
 
