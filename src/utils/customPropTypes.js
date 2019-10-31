@@ -11,7 +11,7 @@ const latLngBoundsType = (props, propName, componentName) => {
     && prop.every((value) => (
       Object.keys(value).length === 2
       && value.hasOwnProperty('lat') && value.hasOwnProperty('lng') // eslint-disable-line no-prototype-builtins
-      && Number.isInteger(value.lat) && Number.isInteger(value.lng)
+      && Number(value.lat) && Number(value.lng)
     ))
   ) {
     return null;
