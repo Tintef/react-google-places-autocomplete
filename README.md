@@ -211,7 +211,10 @@ Example:
       <div className="suggestions-container">
         {
           suggestions.map((suggestion) => (
-            <div className="suggestion">
+            <div
+              className="suggestion"
+              onClick={(event) => onSelectSuggestion(suggestion, event)}
+            >
               {suggestion.description}
             </div>
           ))
