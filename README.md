@@ -49,6 +49,7 @@ Note: this is the simplest way to use the component.
 | suggestionsClassNames | shape    |          | `{ container: '', suggestion: '', suggestionActive: '' }` |
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
 | required              | boolean  |          | false      |
+| disabled              | boolean  |          | false      |
 
 
 ### autocompletionRequest
@@ -210,7 +211,10 @@ Example:
       <div className="suggestions-container">
         {
           suggestions.map((suggestion) => (
-            <div className="suggestion">
+            <div
+              className="suggestion"
+              onClick={(event) => onSelectSuggestion(suggestion, event)}
+            >
               {suggestion.description}
             </div>
           ))

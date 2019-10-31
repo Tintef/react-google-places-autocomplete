@@ -116,6 +116,7 @@ class GooglePlacesAutocomplete extends Component {
         placeholder,
         renderInput,
         required,
+        disabled,
       },
     } = this;
 
@@ -129,6 +130,7 @@ class GooglePlacesAutocomplete extends Component {
         type: 'text',
         placeholder,
         required,
+        disabled,
       });
     }
 
@@ -143,6 +145,8 @@ class GooglePlacesAutocomplete extends Component {
         style={inputStyle}
         type="text"
         value={value}
+        required={required}
+        disabled={disabled}
       />
     );
   }
@@ -312,11 +316,7 @@ class GooglePlacesAutocomplete extends Component {
       <div className="google-places-autocomplete">
         {this.renderInput()}
         {
-          loading ? (
-            this.renderLoader()
-          ) : (
-            this.renderSuggestions()
-          )
+          loading ? this.renderLoader() : this.renderSuggestions()
         }
       </div>
     );
@@ -337,6 +337,7 @@ GooglePlacesAutocomplete.propTypes = {
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
   required: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
@@ -346,7 +347,7 @@ GooglePlacesAutocomplete.defaultProps = {
   inputClassName: '',
   inputStyle: {},
   loader: null,
-  onSelect: () => {},
+  onSelect: () => { },
   placeholder: 'Address',
   renderInput: undefined,
   renderSuggestions: undefined,
@@ -360,6 +361,7 @@ GooglePlacesAutocomplete.defaultProps = {
     suggestion: {},
   },
   required: false,
+  disabled: false,
 };
 
 export default GooglePlacesAutocomplete;
