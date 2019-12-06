@@ -7,7 +7,6 @@ import {
   suggestionClassNamesType,
   suggestionStylesType,
 } from '../utils/customPropTypes';
-import './index.css';
 
 class GooglePlacesAutocomplete extends Component {
   fetchSuggestions = debounce((value) => {
