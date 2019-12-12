@@ -50,6 +50,7 @@ Note: this is the simplest way to use the component.
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
 | required              | boolean  |          | false      |
 | disabled              | boolean  |          | false      |
+| idPrefix              | string   |          | ''         |
 
 
 ### autocompletionRequest
@@ -255,6 +256,20 @@ Example:
     background: 'black',
   },
 }
+```
+
+### idPrefix
+
+Prefix for the id of the different tags on the component (input, suggestion container and suggestion row).
+
+Exmaple:
+```js
+idPrefix='left'
+```
+
+This is needed when you want to render more than one autocomplete input on the same page, in order to avoid the warning:
+```
+[DOM] Found 2 elements with non-unique id #google-places-autocomplete-input: (More info: https://goo.gl/9p2vKq)
 ```
 
 ## Utility Functions

@@ -62,7 +62,9 @@ class GooglePlacesAutocomplete extends Component {
   }
 
   handleClick(ev) {
-    if (!ev.target.id.includes('google-places-autocomplete')) {
+    const { idPrefix } = this.props;
+
+    if (!ev.target.id.includes(`${idPrefix}-google-places-autocomplete`)) {
       this.clearSuggestions();
     }
   }
@@ -111,6 +113,7 @@ class GooglePlacesAutocomplete extends Component {
         value,
       },
       props: {
+        idPrefix,
         inputClassName,
         inputStyle,
         placeholder,
@@ -123,7 +126,7 @@ class GooglePlacesAutocomplete extends Component {
     if (renderInput) {
       return renderInput({
         autoComplete: 'off',
-        id: 'google-places-autocomplete-input',
+        id: `${idPrefix}-google-places-autocomplete-input`,
         value,
         onChange: ({ target }) => this.changeValue(target.value),
         onKeyDown: this.handleKeyDown,
@@ -138,7 +141,7 @@ class GooglePlacesAutocomplete extends Component {
       <input
         autoComplete="off"
         className={inputClassName || 'google-places-autocomplete__input'}
-        id="google-places-autocomplete-input"
+        id={`${idPrefix}-google-places-autocomplete-input`}
         onChange={({ target }) => this.changeValue(target.value)}
         onKeyDown={this.handleKeyDown}
         placeholder={placeholder}
@@ -158,6 +161,7 @@ class GooglePlacesAutocomplete extends Component {
         suggestions,
       },
       props: {
+        idPrefix,
         renderSuggestions,
         suggestionsClassNames,
         suggestionsStyles,
@@ -178,14 +182,14 @@ class GooglePlacesAutocomplete extends Component {
 
     return (
       <div
-        id="google-places-suggestions-container"
+        id={`${idPrefix}-google-places-suggestions-container`}
         className={suggestionsClassNames.container || 'google-places-autocomplete__suggestions-container'}
         style={suggestionsStyles.container}
       >
         {
           suggestions.map((suggestion, index) => (
             <div
-              id={`google-places-autocomplete-suggestion--${index}`}
+              id={`${idPrefix}-google-places-autocomplete-suggestion--${index}`}
               key={suggestion.id}
               className={`${suggestionsClassNames.suggestion || 'google-places-autocomplete__suggestion'} ${activeSuggestion === index ? suggestionsClassNames.suggestionActive || 'google-places-autocomplete__suggestion--active' : ''}`}
               style={suggestionsStyles.suggestion}
@@ -338,6 +342,7 @@ GooglePlacesAutocomplete.propTypes = {
   suggestionsStyles: suggestionStylesType,
   required: PropTypes.bool,
   disabled: PropTypes.bool,
+  idPrefix: PropTypes.string,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
@@ -362,6 +367,7 @@ GooglePlacesAutocomplete.defaultProps = {
   },
   required: false,
   disabled: false,
+  idPrefix: '',
 };
 
 export default GooglePlacesAutocomplete;
