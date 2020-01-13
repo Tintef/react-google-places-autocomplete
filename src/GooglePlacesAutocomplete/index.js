@@ -54,7 +54,7 @@ class GooglePlacesAutocomplete extends Component {
     document.removeEventListener('click', this.handleClick);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.initialValue) {
       this.setState({ value: nextProps.initialValue });
     }
