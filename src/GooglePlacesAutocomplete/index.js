@@ -54,7 +54,7 @@ class GooglePlacesAutocomplete extends Component {
     document.removeEventListener('click', this.handleClick);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
     if (nextProps.initialValue) {
       this.setState({ value: nextProps.initialValue });
     }
