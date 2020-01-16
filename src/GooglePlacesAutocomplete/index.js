@@ -214,7 +214,7 @@ class GooglePlacesAutocomplete extends Component {
 
     return (
       <div className="google-places-autocomplete__suggestions-container">
-        <div className="google-places-autcomplete__suggestions">
+        <div className="google-places-autocomplete__suggestions">
           Loading...
         </div>
       </div>
