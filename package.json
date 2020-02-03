@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "dist/react-google-places-autocomplete.cjs.js",
   "module": "dist/react-google-places-autocomplete.esm.js",
@@ -9,9 +9,7 @@
     "lint": "eslint ./ --ignore-pattern .gitignore --ignore-pattern dist",
     "build": "preconstruct build",
     "postbuild": "node ./build-utils/minifyCSS.js",
-    "release": "yarn build && npm publish",
-    "release:alpha": "yarn build && npm publish --tag alpha",
-    "release:beta": "yarn build && npm publish --tag beta"
+    "release": "yarn build && npm publish"
   },
   "pre-commit": [
     "lint"
