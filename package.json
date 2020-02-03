@@ -2,14 +2,12 @@
   "name": "react-google-places-autocomplete",
   "version": "1.6.2",
   "description": "Google places autocomplete input for ReactJS.",
-  "main": "dist/index.js",
+  "main": "dist/react-google-places-autocomplete.cjs.js",
+  "module": "dist/react-google-places-autocomplete.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./ --ignore-pattern .gitignore --ignore-pattern dist",
-    "build": "npm-run-all --parallel build:*",
-    "build:main": "babel --copy-files --out-dir dist --ignore *.spec.js src",
-    "build:umd": "webpack --output-filename index.umd.js",
-    "build:umd.min": "webpack --output-filename index.umd.min.js -p"
+    "build": "preconstruct build"
   },
   "pre-commit": [
     "lint"
@@ -31,13 +29,14 @@
     "autocomplete"
   ],
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@preconstruct/cli": "^1.1.4",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^2.1.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -46,19 +45,10 @@
     "eslint-plugin-react": "^7.12.3",
     "file-loader": "^3.0.1",
     "npm-run-all": "^4.1.5",
-    "pre-commit": "^1.2.2",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1"
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.7.0"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "stage-2"
-    ]
   }
 }
