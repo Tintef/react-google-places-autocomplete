@@ -1,5 +1,17 @@
 # React Google Places Autocomplete
 
+<p align="center">
+  <a href="https://npmcharts.com/compare/react-google-places-autocomplete?minimal=true">
+    <img src="https://img.shields.io/npm/dm/react-google-places-autocomplete.svg" alt="Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/react-google-places-autocomplete">
+    <img src="https://img.shields.io/npm/v/react-google-places-autocomplete.svg" alt="Version">
+  </a>
+  <a href="https://www.npmjs.com/package/react-google-places-autocomplete">
+    <img src="https://img.shields.io/npm/l/react-google-places-autocomplete.svg" alt="License">
+  </a>
+</p>
+
 React component for easily use Google Places Autocomplete
 
 ## Getting started
