@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./ --ignore-pattern .gitignore --ignore-pattern dist",
+    "watch": "preconstruct watch",
     "build": "preconstruct build",
     "postbuild": "node ./build-utils/minifyCSS.js",
     "release": "yarn build && npm publish"
@@ -33,13 +34,14 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "@node-minify/clean-css": "^5.3.0",
     "@node-minify/core": "^5.3.0",
     "@preconstruct/cli": "^1.1.4",
     "babel-eslint": "^10.0.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-loader": "^8.0.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chalk": "^3.0.0",
     "eslint": "^5.12.0",
@@ -47,10 +49,11 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "react-dom": "^16.12.0"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
-    "react": "^16.7.0"
+    "react": "^16.13.1"
   }
 }

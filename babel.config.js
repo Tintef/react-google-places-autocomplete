@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    'transform-class-properties',
+    '@babel/plugin-proposal-class-properties',
     ['transform-react-remove-prop-types', { mode: 'wrap' }],
   ],
   presets: [

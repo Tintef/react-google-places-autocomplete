@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import autocompletionRequestBuilder from '../utils/autocompletionRequestBuilder';
-import debounce from '../utils/debounce';
+import { injectScript, removeScript } from '../helpers/injectScript';
+import autocompletionRequestBuilder from '../helpers/autocompletionRequestBuilder';
+import debounce from '../helpers/debounce';
 import {
   autocompletionRequestType,
   suggestionClassNamesType,
   suggestionStylesType,
-} from '../utils/customPropTypes';
+} from '../helpers/customPropTypes';
 
-class GooglePlacesAutocomplete extends Component {
+class GooglePlacesAutocomplete extends React.Component {
   fetchSuggestions = debounce((value) => {
-    const { autocompletionRequest } = this.props;
+    const { autocompletionRequest, withSessionToken } = this.props;
+    const { sessionToken } = this.state;
+
+    const autocompletionReq = { ...autocompletionRequest };
+    if (withSessionToken && sessionToken) autocompletionReq.sessionToken = sessionToken;
 
     this.setState({ loading: true });
     this.placesService.getPlacePredictions(
       {
-        ...autocompletionRequestBuilder(autocompletionRequest),
+        ...autocompletionRequestBuilder(autocompletionReq),
         input: value,
       },
       this.fetchSuggestionsCallback,
@@ -29,38 +34,66 @@ class GooglePlacesAutocomplete extends Component {
       activeSuggestion: null,
       loading: false,
       placesServiceStatus: null,
+      sessionToken: null,
       suggestions: [],
       value: props.initialValue,
     };
-
-    this.changeActiveSuggestion = this.changeActiveSuggestion.bind(this);
-    this.changeValue = this.changeValue.bind(this);
-    this.clearSuggestions = this.clearSuggestions.bind(this);
-    this.fetchSuggestionsCallback = this.fetchSuggestionsCallback.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.initalizeService = this.initializeService.bind(this);
-    this.onSuggestionSelect = this.onSuggestionSelect.bind(this);
-    this.renderInput = this.renderInput.bind(this);
-    this.renderSuggestions = this.renderSuggestions.bind(this);
   }
 
   componentDidMount() {
+    const { apiKey } = this.props;
+
+    if (apiKey) {
+      injectScript(apiKey);
+    }
+
     this.initalizeService();
     document.addEventListener('click', this.handleClick);
   }
 
   componentWillUnmount() {
+    removeScript();
     document.removeEventListener('click', this.handleClick);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
-    if (nextProps.initialValue) {
+    const { initialValue } = this.props;
+
+    if (nextProps.initialValue !== initialValue) {
       this.setState({ value: nextProps.initialValue });
     }
   }
 
-  handleClick(ev) {
+  initalizeService = () => {
+    if (!window.google) {
+      console.error('[react-google-places-autocomplete]: Google script not loaded'); // eslint-disable-line no-console
+      setTimeout(this.initalizeService, 500);
+      return;
+    }
+
+    if (!window.google.maps) {
+      console.error('[react-google-places-autocomplete]: Google maps script not loaded'); // eslint-disable-line no-console
+      setTimeout(this.initalizeService, 500);
+      return;
+    }
+
+    if (!window.google.maps.places) {
+      console.error('[react-google-places-autocomplete]: Google maps places script not loaded'); // eslint-disable-line no-console
+      setTimeout(this.initializeService, 500);
+      return;
+    }
+
+    this.placesService = new window.google.maps.places.AutocompleteService();
+    this.setState({ placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK });
+    this.generateSessionToken();
+  }
+
+  generateSessionToken = () => {
+    const sessionToken = new google.maps.places.AutocompleteSessionToken();
+    this.setState({ sessionToken });
+  }
+
+  handleClick = (ev) => {
     const { idPrefix } = this.props;
 
     if (!ev.target.id.includes(`${idPrefix}-google-places-autocomplete`)) {
@@ -68,7 +101,7 @@ class GooglePlacesAutocomplete extends Component {
     }
   }
 
-  changeValue(value) {
+  changeValue = (value) => {
     this.setState({ value });
 
     if (value.length > 0) {
@@ -78,35 +111,87 @@ class GooglePlacesAutocomplete extends Component {
     }
   }
 
-  initializeService() {
-    if (!window.google) {
-      console.error('[react-google-places-autocomplete]: Google script not loaded'); // eslint-disable-line no-console
-      setTimeout(() => { this.initalizeService(); }, 1000);
+  onSuggestionSelect = (suggestion, ev = null) => {
+    if (ev) ev.stopPropagation();
 
-      return;
-    }
+    const { onSelect } = this.props;
 
-    if (!window.google.maps) {
-      console.error('[react-google-places-autocomplete]: Google maps script not loaded'); // eslint-disable-line no-console
-      setTimeout(() => { this.initalizeService(); }, 1000);
-
-      return;
-    }
-
-    if (!window.google.maps.places) {
-      console.error('[react-google-places-autocomplete]: Google maps places script not loaded'); // eslint-disable-line no-console
-      setTimeout(() => { this.initializeService(); }, 1000);
-
-      return;
-    }
-
-    this.placesService = new window.google.maps.places.AutocompleteService();
     this.setState({
-      placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK,
+      activeSuggestion: null,
+      suggestions: [],
+      value: suggestion.description,
+    });
+
+    this.generateSessionToken();
+    onSelect(suggestion);
+  }
+
+  fetchSuggestionsCallback = (suggestions, status) => {
+    const { placesServiceStatus } = this.state;
+
+    if (status !== placesServiceStatus) {
+      // show error
+    }
+
+    this.setState({
+      loading: false,
+      suggestions: suggestions || [],
     });
   }
 
-  renderInput() {
+  handleKeyDown = (event) => {
+    const { activeSuggestion, suggestions } = this.state;
+
+    switch (event.key) {
+      case 'Enter':
+        event.preventDefault();
+        if (activeSuggestion !== null) this.onSuggestionSelect(suggestions[activeSuggestion]);
+        break;
+      case 'ArrowDown':
+        this.changeActiveSuggestion(1);
+        break;
+      case 'ArrowUp':
+        this.changeActiveSuggestion(-1);
+        break;
+      case 'Escape':
+        this.clearSuggestions();
+        break;
+      default:
+    }
+  }
+
+  clearSuggestions = () => {
+    this.setState({
+      activeSuggestion: null,
+      suggestions: [],
+    });
+  }
+
+  changeActiveSuggestion(direction) {
+    const { suggestions: suggs } = this.state;
+
+    if (suggs.length === 0) return;
+
+    switch (direction) {
+      case 1:
+        this.setState(({ activeSuggestion, suggestions }) => {
+          if (activeSuggestion === null || activeSuggestion === suggestions.length - 1) return { activeSuggestion: 0 };
+
+          return { activeSuggestion: activeSuggestion + 1 };
+        });
+        break;
+      case -1:
+        this.setState(({ activeSuggestion, suggestions }) => {
+          if (!activeSuggestion) return { activeSuggestion: suggestions.length - 1 };
+
+          return { activeSuggestion: activeSuggestion - 1 };
+        });
+        break;
+      default:
+    }
+  }
+
+  renderInput = () => {
     const {
       state: {
         value,
@@ -153,7 +238,23 @@ class GooglePlacesAutocomplete extends Component {
     );
   }
 
-  renderSuggestions() {
+  renderLoader = () => {
+    const {
+      loader,
+    } = this.props;
+
+    if (loader) return loader;
+
+    return (
+      <div className="google-places-autocomplete__suggestions-container">
+        <div className="google-places-autocomplete__suggestions">
+          Loading...
+        </div>
+      </div>
+    );
+  }
+
+  renderSuggestions = () => {
     const {
       state: {
         activeSuggestion,
@@ -167,9 +268,7 @@ class GooglePlacesAutocomplete extends Component {
       },
     } = this;
 
-    if (suggestions.length === 0) {
-      return null;
-    }
+    if (suggestions.length === 0) return null;
 
     if (renderSuggestions) {
       return renderSuggestions(
@@ -203,132 +302,24 @@ class GooglePlacesAutocomplete extends Component {
     );
   }
 
-  renderLoader() {
-    const {
-      loader,
-    } = this.props;
-
-    if (loader) {
-      return loader;
-    }
-
-    return (
-      <div className="google-places-autocomplete__suggestions-container">
-        <div className="google-places-autocomplete__suggestions">
-          Loading...
-        </div>
-      </div>
-    );
-  }
-
-  onSuggestionSelect(suggestion, ev = null) {
-    if (ev) {
-      ev.stopPropagation();
-    }
-
-    const {
-      onSelect,
-    } = this.props;
-
-    this.setState({
-      activeSuggestion: null,
-      suggestions: [],
-      value: suggestion.description,
-    });
-
-    onSelect(suggestion);
-  }
-
-  fetchSuggestionsCallback(suggestions, status) {
-    const { placesServiceStatus } = this.state;
-
-    if (status !== placesServiceStatus) {
-      // show error
-    }
-
-    this.setState({
-      loading: false,
-      suggestions: suggestions || [],
-    });
-  }
-
-  handleKeyDown(event) {
-    const { activeSuggestion, suggestions } = this.state;
-
-    switch (event.key) {
-      case 'Enter':
-        event.preventDefault();
-        if (activeSuggestion !== null) {
-          this.onSuggestionSelect(suggestions[activeSuggestion]);
-        }
-        break;
-      case 'ArrowDown':
-        this.changeActiveSuggestion(1);
-        break;
-      case 'ArrowUp':
-        this.changeActiveSuggestion(-1);
-        break;
-      case 'Escape':
-        this.clearSuggestions();
-        break;
-      default:
-    }
-  }
-
-  clearSuggestions() {
-    this.setState({
-      activeSuggestion: null,
-      suggestions: [],
-    });
-  }
-
-  changeActiveSuggestion(direction) {
-    const { suggestions: suggs } = this.state;
-
-    if (suggs.length === 0) {
-      return;
-    }
-
-    switch (direction) {
-      case 1:
-        this.setState(({ activeSuggestion, suggestions }) => {
-          if (activeSuggestion === null || activeSuggestion === suggestions.length - 1) {
-            return { activeSuggestion: 0 };
-          }
-
-          return { activeSuggestion: activeSuggestion + 1 };
-        });
-        break;
-      case -1:
-        this.setState(({ activeSuggestion, suggestions }) => {
-          if (!activeSuggestion) {
-            return { activeSuggestion: suggestions.length - 1 };
-          }
-
-          return { activeSuggestion: activeSuggestion - 1 };
-        });
-        break;
-      default:
-    }
-  }
-
   render() {
     const { loading } = this.state;
 
     return (
       <div className="google-places-autocomplete">
         {this.renderInput()}
-        {
-          loading ? this.renderLoader() : this.renderSuggestions()
-        }
+        {loading ? this.renderLoader() : this.renderSuggestions()}
       </div>
     );
   }
 }
 
 GooglePlacesAutocomplete.propTypes = {
+  apiKey: PropTypes.string,
   autocompletionRequest: autocompletionRequestType,
   debounce: PropTypes.number,
+  disabled: PropTypes.bool,
+  idPrefix: PropTypes.string,
   initialValue: PropTypes.string,
   inputClassName: PropTypes.string,
   inputStyle: PropTypes.object,
@@ -337,24 +328,27 @@ GooglePlacesAutocomplete.propTypes = {
   placeholder: PropTypes.string,
   renderInput: PropTypes.func,
   renderSuggestions: PropTypes.func,
+  required: PropTypes.bool,
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
-  required: PropTypes.bool,
-  disabled: PropTypes.bool,
-  idPrefix: PropTypes.string,
+  withSessionToken: PropTypes.bool,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
+  apiKey: '',
   autocompletionRequest: {},
   debounce: 300,
+  disabled: false,
+  idPrefix: '',
   initialValue: '',
   inputClassName: '',
   inputStyle: {},
   loader: null,
   onSelect: () => { },
-  placeholder: 'Address',
+  placeholder: 'Address...',
   renderInput: undefined,
   renderSuggestions: undefined,
+  required: false,
   suggestionsClassNames: {
     container: '',
     suggestion: '',
@@ -364,9 +358,7 @@ GooglePlacesAutocomplete.defaultProps = {
     container: {},
     suggestion: {},
   },
-  required: false,
-  disabled: false,
-  idPrefix: '',
+  withSessionToken: false,
 };
 
 export default GooglePlacesAutocomplete;

@@ -1,4 +1,4 @@
-const autocompletionRequestBuilder = (autocompletionRequest) => {
+export default (autocompletionRequest) => {
   const res = { ...autocompletionRequest };
 
   if (autocompletionRequest.bounds) {
@@ -11,5 +11,3 @@ const autocompletionRequestBuilder = (autocompletionRequest) => {
 
   return res;
 };
-
-export default autocompletionRequestBuilder;

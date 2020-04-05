@@ -23,7 +23,9 @@ First, load [Google Maps JavaScript API](https://developers.google.com/maps/docu
 
 Install the latest version:
 ```sh
-npm install --save react-google-places-autocomplete@latest
+npm install --save react-google-places-autocomplete
+  or
+yarn react-google-places-autocomplete
 ```
 
 Use the component!
@@ -43,15 +45,21 @@ const Component = () => (
 
 export default Component;
 ```
-Note: this is the simplest way to use the component.
+
+**Note:**
+- this is the simplest way to use the component.
+- if you pass down the `apiKey` prop to the component, you can skip loading the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), as the component will inject that script on the page.
 
 ## Props
 
 
 | Prop                  | Type     | Required | Default    |
 |-----------------------|----------|----------|------------|
+| apiKey                | string   |          | ''         |
 | autocompletionRequest | object   |          | {}         |
 | debounce              | number   |          | 300        |
+| disabled              | boolean  |          | false      |
+| idPrefix              | string   |          | ''         |
 | initialValue          | string   |          | ''         |
 | inputClassName        | string   |          | ''         |
 | inputStyle            | object   |          | {}         |
@@ -60,12 +68,15 @@ Note: this is the simplest way to use the component.
 | placeholder           | string   |          | 'Address'  |
 | renderInput           | function |          | undefined  |
 | renderSuggestions     | function |          | undefined  |
+| required              | boolean  |          | false      |
 | suggestionsClassNames | shape    |          | `{ container: '', suggestion: '', suggestionActive: '' }` |
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
-| required              | boolean  |          | false      |
-| disabled              | boolean  |          | false      |
-| idPrefix              | string   |          | ''         |
+| withSessionToken      | boolean  |          | false      |
 
+
+### apiKey
+
+If this parameter is passed, the component will inject the google places script usign this `APIKEY`.
 
 ### autocompletionRequest
 
@@ -120,7 +131,7 @@ Examples:
 ...
 ```
 
-Note: for more information check [google documentation](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest).
+**Note:** for more information check [google documentation](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest).
 
 ### debounce
 
@@ -285,6 +296,10 @@ This is needed when you want to render more than one autocomplete input on the s
 ```
 [DOM] Found 2 elements with non-unique id #google-places-autocomplete-input: (More info: https://goo.gl/9p2vKq)
 ```
+
+### withSessionToken
+
+If this prop is `true`, the component will handle changing the `sessionToken` on every session. To learn more about how this works refer to [Google Places Session Token docs](https://developers.google.com/places/web-service/session-tokens).
 
 ## Utility Functions
 
