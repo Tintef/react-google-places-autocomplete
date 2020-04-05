@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./ --ignore-pattern .gitignore --ignore-pattern dist",
     "build": "npm-run-all --parallel build:*",
-    "build:main": "babel --copy-files --out-dir dist --ignore *.spec.js src",
+    "build:main": "babel --copy-files --out-dir dist --ignore *.spec.js src *.d.ts",
     "build:umd": "webpack --output-filename index.umd.js",
     "build:umd.min": "webpack --output-filename index.umd.min.js -p"
   },
