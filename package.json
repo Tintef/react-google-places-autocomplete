@@ -55,6 +55,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0"
   },
+  "typings": "src/index.d.ts",
   "babel": {
     "presets": [
       "react",
