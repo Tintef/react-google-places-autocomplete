@@ -1,4 +1,4 @@
-export const geocodeByAddress = (address) => {
+const geocodeByAddress = (address) => {
   const geocoder = new window.google.maps.Geocoder();
   const { OK } = window.google.maps.GeocoderStatus;
 
@@ -12,7 +12,7 @@ export const geocodeByAddress = (address) => {
   });
 };
 
-export const getLatLng = (result) => new Promise((resolve, reject) => {
+const getLatLng = (result) => new Promise((resolve, reject) => {
   try {
     const latLng = {
       lat: result.geometry.location.lat(),
@@ -24,7 +24,7 @@ export const getLatLng = (result) => new Promise((resolve, reject) => {
   }
 });
 
-export const geocodeByPlaceId = (placeId) => {
+const geocodeByPlaceId = (placeId) => {
   const geocoder = new window.google.maps.Geocoder();
   const { OK } = window.google.maps.GeocoderStatus;
 
@@ -36,4 +36,10 @@ export const geocodeByPlaceId = (placeId) => {
       return resolve(results);
     });
   });
+};
+
+export {
+  geocodeByAddress,
+  getLatLng,
+  geocodeByPlaceId,
 };
