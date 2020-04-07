@@ -4,12 +4,13 @@
   "description": "Google places autocomplete input for ReactJS.",
   "main": "dist/react-google-places-autocomplete.cjs.js",
   "module": "dist/react-google-places-autocomplete.esm.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./ --ignore-pattern .gitignore --ignore-pattern dist",
     "watch": "preconstruct watch",
     "build": "preconstruct build",
-    "postbuild": "node ./build-utils/minifyCSS.js",
+    "postbuild": "node ./build-utils/minifyCSS.js && cp ./src/index.d.ts ./dist/index.d.ts",
     "release": "yarn build && npm publish"
   },
   "pre-commit": [
