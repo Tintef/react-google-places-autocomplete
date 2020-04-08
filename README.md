@@ -25,7 +25,7 @@ Install the latest version:
 ```sh
 npm install --save react-google-places-autocomplete
   or
-yarn react-google-places-autocomplete
+yarn add react-google-places-autocomplete
 ```
 
 Use the component!
