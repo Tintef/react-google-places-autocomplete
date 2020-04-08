@@ -12,5 +12,7 @@ export const injectScript = (apiKey) => {
 
 export const removeScript = () => {
   const script = document.getElementById(SCRIPT_ID);
-  document.body.removeChild(script);
+  if (script) {
+    document.body.removeChild(script);
+  }
 };
