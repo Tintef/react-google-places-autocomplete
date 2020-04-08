@@ -210,7 +210,7 @@ class GooglePlacesAutocomplete extends React.Component {
     if (renderInput) {
       return renderInput({
         autoComplete: 'off',
-        id: `${idPrefix}-google-places-autocomplete-input`,
+        id: `${idPrefix ? `${idPrefix}-` : ''}react-google-places-autocomplete-input`,
         value,
         onChange: ({ target }) => this.changeValue(target.value),
         onKeyDown: this.handleKeyDown,
@@ -225,7 +225,7 @@ class GooglePlacesAutocomplete extends React.Component {
       <input
         autoComplete="off"
         className={inputClassName || 'google-places-autocomplete__input'}
-        id={`${idPrefix}-google-places-autocomplete-input`}
+        id={`${idPrefix ? `${idPrefix}-` : ''}react-google-places-autocomplete-input`}
         onChange={({ target }) => this.changeValue(target.value)}
         onKeyDown={this.handleKeyDown}
         placeholder={placeholder}
