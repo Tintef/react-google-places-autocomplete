@@ -1,6 +1,8 @@
 const SCRIPT_ID = 'react-google-places-autocomplete';
 
 export const injectScript = (apiKey) => {
+  if (document.getElementById(SCRIPT_ID)) return;
+
   const script = document.createElement('script');
 
   script.id = SCRIPT_ID;
