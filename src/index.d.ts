@@ -24,10 +24,10 @@ interface GooglePlacesAutocompleteProps {
   inputClassName?: string;
   inputStyle?: object;
   loader?: JSX.Element;
-  onSelect?: () => void;
+  onSelect?: (selection: any) => void;
   placeholder?: string;
-  renderInput?: () => void;
-  renderSuggestions?: () => void;
+  renderInput?: (props: any) => JSX.Element;
+  renderSuggestions?: (activeSuggestion: number, suggestions: Array<any>, onSelectSuggestion: (selection: any, event: any) => void) => JSX.Element;
   required?: boolean;
   suggestionsClassNames?: {
     container?: string,
