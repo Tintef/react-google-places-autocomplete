@@ -16,7 +16,7 @@ interface autocompletionRequest {
 
 interface GooglePlacesAutocompleteProps {
   apiKey?: string;
-  autocompletionRequest?: autocompletionRequest;
+  autocompleteRequest?: autocompletionRequest;
   debounce?: number;
   disabled?: boolean;
   idPrefix?: string;
