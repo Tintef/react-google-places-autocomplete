@@ -36,6 +36,7 @@ class GooglePlacesAutocomplete extends React.Component {
       placesServiceStatus: null,
       sessionToken: null,
       suggestions: [],
+      timeoutId: null,
       value: props.initialValue,
     };
   }
@@ -52,6 +53,12 @@ class GooglePlacesAutocomplete extends React.Component {
   }
 
   componentWillUnmount() {
+    const { timeoutId } = this.state;
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
     removeScript();
     document.removeEventListener('click', this.handleClick);
   }
@@ -67,24 +74,30 @@ class GooglePlacesAutocomplete extends React.Component {
   initalizeService = () => {
     if (!window.google) {
       console.error('[react-google-places-autocomplete]: Google script not loaded'); // eslint-disable-line no-console
-      setTimeout(this.initalizeService, 500);
+      const timeoutId = setTimeout(this.initalizeService, 500);
+      this.setState({ timeoutId });
       return;
     }
 
     if (!window.google.maps) {
       console.error('[react-google-places-autocomplete]: Google maps script not loaded'); // eslint-disable-line no-console
-      setTimeout(this.initalizeService, 500);
+      const timeoutId = setTimeout(this.initalizeService, 500);
+      this.setState({ timeoutId });
       return;
     }
 
     if (!window.google.maps.places) {
       console.error('[react-google-places-autocomplete]: Google maps places script not loaded'); // eslint-disable-line no-console
-      setTimeout(this.initializeService, 500);
+      const timeoutId = setTimeout(this.initializeService, 500);
+      this.setState({ timeoutId });
       return;
     }
 
     this.placesService = new window.google.maps.places.AutocompleteService();
-    this.setState({ placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK });
+    this.setState({
+      placesServiceStatus: window.google.maps.places.PlacesServiceStatus.OK,
+      timeoutId: null,
+    });
     this.generateSessionToken();
   }
 
