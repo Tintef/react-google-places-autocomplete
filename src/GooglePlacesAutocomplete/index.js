@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectScript, removeScript } from '../helpers/injectScript';
+import injectScript from '../helpers/injectScript';
 import autocompletionRequestBuilder from '../helpers/autocompletionRequestBuilder';
 import debounce from '../helpers/debounce';
 import {
@@ -59,7 +59,6 @@ class GooglePlacesAutocomplete extends React.Component {
       clearTimeout(timeoutId);
     }
 
-    removeScript();
     document.removeEventListener('click', this.handleClick);
   }
 
