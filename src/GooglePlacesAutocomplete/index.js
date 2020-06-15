@@ -126,12 +126,12 @@ class GooglePlacesAutocomplete extends React.Component {
   onSuggestionSelect = (suggestion, ev = null) => {
     if (ev) ev.stopPropagation();
 
-    const { onSelect } = this.props;
+    const { displayFromSuggestionSelected, onSelect } = this.props;
 
     this.setState({
       activeSuggestion: null,
       suggestions: [],
-      value: suggestion.description,
+      value: displayFromSuggestionSelected(suggestion),
     });
 
     this.generateSessionToken();
@@ -337,6 +337,7 @@ GooglePlacesAutocomplete.propTypes = {
   inputStyle: PropTypes.object,
   loader: PropTypes.node,
   onSelect: PropTypes.func,
+  displayFromSuggestionSelected: PropTypes.func,
   placeholder: PropTypes.string,
   renderInput: PropTypes.func,
   renderSuggestions: PropTypes.func,
@@ -357,6 +358,7 @@ GooglePlacesAutocomplete.defaultProps = {
   inputStyle: {},
   loader: null,
   onSelect: () => { },
+  displayFromSuggestionSelected: (suggestion) => (suggestion.description),
   placeholder: 'Address...',
   renderInput: undefined,
   renderSuggestions: undefined,
