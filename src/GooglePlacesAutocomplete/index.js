@@ -268,15 +268,16 @@ class GooglePlacesAutocomplete extends React.Component {
       },
     } = this;
 
-    if (suggestions.length === 0) return null;
-
     if (renderSuggestions) {
+      if (suggestions.length === 0) return null;
       return renderSuggestions(
         activeSuggestion,
         suggestions,
         this.onSuggestionSelect,
       );
     }
+
+    
 
     return (
       <div
