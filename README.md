@@ -65,6 +65,7 @@ export default Component;
 | inputStyle            | object   |          | {}         |
 | loader                | node     |          | null       |
 | onSelect              | function |          | () => {}   |
+| displayFromSuggestionSelected | function |          | `(suggestion) => ( suggestion.description )`   |
 | placeholder           | string   |          | 'Address'  |
 | renderInput           | function |          | undefined  |
 | renderSuggestions     | function |          | undefined  |
@@ -180,7 +181,7 @@ import loader from '../assets/loader.svg';
 
 ### onSelect
 
-Function to be called when the user select one of the suggestions provided by Google Maps API.
+Function to be called when the user selects one of the suggestions provided by Google Maps API.
 
 Example:
 ```js
@@ -189,6 +190,23 @@ Example:
   <GooglePlacesAutocomplete
     onSelect={({ description }) => (
       this.setState({ address: description });
+    )}
+  />
+
+...
+```
+
+### displayFromSuggestionSelected
+
+Function to be called when the user selects one of the suggestions provided by Google Maps API. The function receives a suggestion object as a parameter and returns a string to update the input value.
+
+Example:
+```js
+...
+
+  <GooglePlacesAutocomplete
+    displayFromSuggestionSelected={({ structured_formatting }) => (
+      structured_formatting.main_text
     )}
   />
 
