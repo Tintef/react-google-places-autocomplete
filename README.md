@@ -73,6 +73,7 @@ export default Component;
 | suggestionsClassNames | shape    |          | `{ container: '', suggestion: '', suggestionActive: '' }` |
 | suggestionsStyles     | shape    |          | `{ container: {}, suggestion: {} }` |
 | withSessionToken      | boolean  |          | false      |
+| minLengthAutocomplete | number   |          | 0          |
 
 
 ### apiKey
@@ -318,6 +319,10 @@ This is needed when you want to render more than one autocomplete input on the s
 ### withSessionToken
 
 If this prop is `true`, the component will handle changing the `sessionToken` on every session. To learn more about how this works refer to [Google Places Session Token docs](https://developers.google.com/places/web-service/session-tokens).
+
+### minLengthAutocomplete
+
+Defines a minimum number of characters to make requests to the Google API
 
 ## Utility Functions
 
