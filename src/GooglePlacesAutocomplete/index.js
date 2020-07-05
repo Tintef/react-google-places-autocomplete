@@ -114,9 +114,10 @@ class GooglePlacesAutocomplete extends React.Component {
   }
 
   changeValue = (value) => {
+    const { minLengthAutocomplete } = this.props;
     this.setState({ value });
 
-    if (value.length > 0) {
+    if (value.length > minLengthAutocomplete) {
       this.fetchSuggestions(value);
     } else {
       this.setState({ suggestions: [] });
@@ -345,6 +346,7 @@ GooglePlacesAutocomplete.propTypes = {
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
   withSessionToken: PropTypes.bool,
+  minLengthAutocomplete: PropTypes.number,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
@@ -373,6 +375,7 @@ GooglePlacesAutocomplete.defaultProps = {
     suggestion: {},
   },
   withSessionToken: false,
+  minLengthAutocomplete: 0,
 };
 
 export default GooglePlacesAutocomplete;
