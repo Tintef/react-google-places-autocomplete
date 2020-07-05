@@ -41,6 +41,7 @@ interface GooglePlacesAutocompleteProps {
   inputStyle?: object;
   loader?: JSX.Element;
   minLengthAutocomplete?: number;
+  onLoadFailed?: (error: Error) => void;
   onSelect?: (selection: any) => void;
   placeholder?: string;
   renderInput?: (props: any) => JSX.Element;
