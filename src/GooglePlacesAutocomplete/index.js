@@ -354,13 +354,14 @@ GooglePlacesAutocomplete.defaultProps = {
   autocompletionRequest: {},
   debounce: 300,
   disabled: false,
+  displayFromSuggestionSelected: (suggestion) => (suggestion.description),
   idPrefix: '',
   initialValue: '',
   inputClassName: '',
   inputStyle: {},
   loader: null,
+  minLengthAutocomplete: 0,
   onSelect: () => { },
-  displayFromSuggestionSelected: (suggestion) => (suggestion.description),
   placeholder: 'Address...',
   renderInput: undefined,
   renderSuggestions: undefined,
@@ -375,7 +376,6 @@ GooglePlacesAutocomplete.defaultProps = {
     suggestion: {},
   },
   withSessionToken: false,
-  minLengthAutocomplete: 0,
 };
 
 export default GooglePlacesAutocomplete;

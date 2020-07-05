@@ -5,7 +5,7 @@ interface latLng {
   lng: number;
 }
 
-interface autocompletionRequest {
+interface autocompletionRequestType {
   bounds?: [latLng];
   componentRestrictions?: { country: string | [string] };
   location?: latLng;
@@ -14,20 +14,37 @@ interface autocompletionRequest {
   types?: [string];
 }
 
+interface suggestionType {
+  description: string;
+  id: string;
+  matches_substrings: [{ length: number, offest: number }];
+  place_id: string;
+  reference: string;
+  structured_formatting: {
+    main_text: string;
+    secondary_text: string;
+    main_text_matched_substrings: [{ length: number, offset: number }];
+  };
+  terms: [{ offset: number, value: string }];
+  types: [string];
+}
+
 interface GooglePlacesAutocompleteProps {
   apiKey?: string;
-  autocompletionRequest?: autocompletionRequest;
+  autocompletionRequest?: autocompletionRequestType;
   debounce?: number;
   disabled?: boolean;
+  displayFromSuggestionSelected?: (suggestion: suggestionType) => JSX.Element | string;
   idPrefix?: string;
   initialValue?: string;
   inputClassName?: string;
   inputStyle?: object;
   loader?: JSX.Element;
+  minLengthAutocomplete?: number;
   onSelect?: (selection: any) => void;
   placeholder?: string;
   renderInput?: (props: any) => JSX.Element;
-  renderSuggestions?: (activeSuggestion: number, suggestions: Array<any>, onSelectSuggestion: (selection: any, event: any) => void) => JSX.Element;
+  renderSuggestions?: (activeSuggestion: number, suggestions: Array<suggestionType>, onSelectSuggestion: (selection: any, event: any) => void) => JSX.Element;
   required?: boolean;
   suggestionsClassNames?: {
     container?: string,
@@ -58,5 +75,11 @@ declare function geocodeByAddress(address: string): Promise<[geocodeResult]>;
 declare function getLatLng(result: object): Promise<latLng>;
 declare function geocodeByPlaceId(placeId: string): Promise<[geocodeResult]>;
 
-export { geocodeByAddress, getLatLng, geocodeByPlaceId };
+export {
+  geocodeByAddress,
+  getLatLng,
+  geocodeByPlaceId,
+  autocompletionRequestType,
+  suggestionType,
+};
 export default class GooglePlacesAutocomplete extends React.Component<GooglePlacesAutocompleteProps, any> { }
