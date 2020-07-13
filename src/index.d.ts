@@ -69,9 +69,9 @@ interface geocodeResult {
   types: string[];
 }
 
-declare function geocodeByAddress(address: string): Promise<[geocodeResult]>;
+declare function geocodeByAddress(address: string): Promise<geocodeResult[]>;
 declare function getLatLng(result: object): Promise<latLng>;
-declare function geocodeByPlaceId(placeId: string): Promise<[geocodeResult]>;
+declare function geocodeByPlaceId(placeId: string): Promise<geocodeResult[]>;
 
 export {
   geocodeByAddress,
