@@ -6,27 +6,27 @@ interface latLng {
 }
 
 interface autocompletionRequestType {
-  bounds?: [latLng];
-  componentRestrictions?: { country: string | [string] };
+  bounds?: [latLng, latLng];
+  componentRestrictions?: { country: string | string[] };
   location?: latLng;
   offset?: number;
   radius?: number;
-  types?: [string];
+  types?: string[];
 }
 
 interface suggestionType {
   description: string;
   id: string;
-  matches_substrings: [{ length: number, offest: number }];
+  matches_substrings: { length: number, offest: number }[];
   place_id: string;
   reference: string;
   structured_formatting: {
     main_text: string;
     secondary_text: string;
-    main_text_matched_substrings: [{ length: number, offset: number }];
+    main_text_matched_substrings: { length: number, offset: number }[];
   };
-  terms: [{ offset: number, value: string }];
-  types: [string];
+  terms: { offset: number, value: string }[];
+  types: string[];
 }
 
 interface GooglePlacesAutocompleteProps {
@@ -59,16 +59,14 @@ interface GooglePlacesAutocompleteProps {
 }
 
 interface geocodeResult {
-  address_components: [object];
+  address_components: object[];
   formatted_address: string;
   geometry: {
-    bounds: [latLng],
     location: latLng,
-    location_type: string,
-    viewport: [latLng],
+    viewport: { northeast: latLng, southwest: latLng },
   };
-  place_id: [string];
-  types: [string];
+  place_id: string;
+  types: string[];
 }
 
 declare function geocodeByAddress(address: string): Promise<[geocodeResult]>;
