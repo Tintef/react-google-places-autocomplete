@@ -482,3 +482,20 @@ result = {
   lng: Number,
 }
 ```
+
+### Clear Value
+
+Using React Ref Hooks to run a function on the state of the compoent which clears out suggestions and the input box
+
+```js
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
+  const googlePlacesAutocompleteRef = useRef();
+
+      <GooglePlacesAutocomplete
+        ref={googlePlacesAutocompleteRef}
+        onSelect={(result) => console.log(result)}
+      />
+      <button onClick={() => googlePlacesAutocompleteRef.current?.clearValue()}>Clear Button</button>
+  );
+```

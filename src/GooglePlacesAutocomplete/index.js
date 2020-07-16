@@ -155,6 +155,11 @@ class GooglePlacesAutocomplete extends React.Component {
     }
   }
 
+  clearValue = () => {
+    this.setState({ value: '' });
+    this.clearSuggestions();
+  }
+
   clearSuggestions = () => {
     this.setState({
       activeSuggestion: null,
