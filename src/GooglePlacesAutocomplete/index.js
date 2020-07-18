@@ -48,7 +48,7 @@ class GooglePlacesAutocomplete extends React.Component {
       injectScript(apiKey);
     }
 
-    this.initalizeService();
+    this.initializeService();
     document.addEventListener('click', this.handleClick);
   }
 
@@ -70,17 +70,17 @@ class GooglePlacesAutocomplete extends React.Component {
     }
   }
 
-  initalizeService = () => {
+  initializeService = () => {
     if (!window.google) {
       console.error('[react-google-places-autocomplete]: Google script not loaded'); // eslint-disable-line no-console
-      const timeoutId = setTimeout(this.initalizeService, 500);
+      const timeoutId = setTimeout(this.initializeService, 500);
       this.setState({ timeoutId });
       return;
     }
 
     if (!window.google.maps) {
       console.error('[react-google-places-autocomplete]: Google maps script not loaded'); // eslint-disable-line no-console
-      const timeoutId = setTimeout(this.initalizeService, 500);
+      const timeoutId = setTimeout(this.initializeService, 500);
       this.setState({ timeoutId });
       return;
     }
