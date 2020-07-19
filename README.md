@@ -64,6 +64,7 @@ export default Component;
 | inputClassName        | string   |          | ''         |
 | inputStyle            | object   |          | {}         |
 | loader                | node     |          | null       |
+| onLoadFailed          | function |          | `console.error` |
 | onSelect              | function |          | () => {}   |
 | displayFromSuggestionSelected | function |          | `(suggestion) => ( suggestion.description )`   |
 | placeholder           | string   |          | 'Address'  |
@@ -191,6 +192,23 @@ Example:
   <GooglePlacesAutocomplete
     onSelect={({ description }) => (
       this.setState({ address: description });
+    )}
+  />
+
+...
+```
+
+### onLoadFailed
+
+Function to be called when the injection of the Google API script fails due to network error.
+
+Example:
+```js
+...
+
+  <GooglePlacesAutocomplete
+    onLoadFailed={(error) => (
+      console.error("Could not inject Google script", error);
     )}
   />
 
