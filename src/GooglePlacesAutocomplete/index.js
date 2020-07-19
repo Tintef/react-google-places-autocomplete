@@ -314,14 +314,15 @@ GooglePlacesAutocomplete.propTypes = {
   autocompletionRequest: autocompletionRequestType,
   debounce: PropTypes.number,
   disabled: PropTypes.bool,
+  displayFromSuggestionSelected: PropTypes.func,
   idPrefix: PropTypes.string,
   initialValue: PropTypes.string,
   inputClassName: PropTypes.string,
   inputStyle: PropTypes.object,
   loader: PropTypes.node,
+  minLengthAutocomplete: PropTypes.number,
   onLoadFailed: PropTypes.func,
   onSelect: PropTypes.func,
-  displayFromSuggestionSelected: PropTypes.func,
   placeholder: PropTypes.string,
   renderInput: PropTypes.func,
   renderSuggestions: PropTypes.func,
@@ -329,7 +330,6 @@ GooglePlacesAutocomplete.propTypes = {
   suggestionsClassNames: suggestionClassNamesType,
   suggestionsStyles: suggestionStylesType,
   withSessionToken: PropTypes.bool,
-  minLengthAutocomplete: PropTypes.number,
 };
 
 GooglePlacesAutocomplete.defaultProps = {
