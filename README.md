@@ -471,13 +471,13 @@ Using React Ref Hooks to run a function on the state of the compoent which clear
 
 ```js
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import React, { useRef } from 'react';
 
   const googlePlacesAutocompleteRef = useRef();
 
       <GooglePlacesAutocomplete
         ref={googlePlacesAutocompleteRef}
-        onSelect={(result) => console.log(result)}
       />
-      <button onClick={() => googlePlacesAutocompleteRef.current?.clearValue()}>Clear Button</button>
+      <button onClick={() => googlePlacesAutocompleteRef.current.clearValue()}>Clear Button</button>
   );
 ```
