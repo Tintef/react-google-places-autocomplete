@@ -68,6 +68,7 @@ const injectScript = (apiKey) => {
           script.removeEventListener('error', onScriptLoadError);
           onScriptLoadCallbacks = [];
           onScriptLoadErrorCallbacks = [];
+          injectionState = INJECTION_STATE_DONE;
         };
 
         script.addEventListener('load', onScriptLoad);
