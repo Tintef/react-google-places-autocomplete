@@ -283,7 +283,7 @@ class GooglePlacesAutocomplete extends React.Component {
           suggestions.map((suggestion, index) => (
             <div
               id={`${idPrefix}-google-places-autocomplete-suggestion--${index}`}
-              key={suggestion.id}
+              key={suggestion.place_id}
               className={`${suggestionsClassNames.suggestion || 'google-places-autocomplete__suggestion'} ${activeSuggestion === index ? suggestionsClassNames.suggestionActive || 'google-places-autocomplete__suggestion--active' : ''}`}
               style={suggestionsStyles.suggestion}
               onClick={(event) => this.onSuggestionSelect(suggestion, event)}
