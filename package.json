@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "2.2.2",
+  "version": "2.3.0-beta.1",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "dist/react-google-places-autocomplete.cjs.js",
   "module": "dist/react-google-places-autocomplete.esm.js",
@@ -36,6 +36,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "@node-minify/clean-css": "^5.3.0",
@@ -54,6 +55,7 @@
     "react-dom": "^16.12.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.5",
     "prop-types": "^15.6.2",
     "react": "^16.13.1"
   }
