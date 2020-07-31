@@ -191,6 +191,14 @@ class GooglePlacesAutocomplete extends React.Component {
     }
   }
 
+  onHoverOverSuggestion = (index) => {
+    const { suggestions } = this.state;
+
+    if (suggestions.length === 0) return;
+
+    this.setState({ activeSuggestion: index });
+  }
+
   renderInput = () => {
     const {
       state: {
@@ -292,6 +300,7 @@ class GooglePlacesAutocomplete extends React.Component {
               className={`${suggestionsClassNames.suggestion || 'google-places-autocomplete__suggestion'} ${activeSuggestion === index ? suggestionsClassNames.suggestionActive || 'google-places-autocomplete__suggestion--active' : ''}`}
               style={suggestionsStyles.suggestion}
               onClick={(event) => this.onSuggestionSelect(suggestion, event)}
+              onMouseEnter={() => this.onHoverOverSuggestion(index)}
               role="presentation"
             >
               {suggestion.description}
