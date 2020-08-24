@@ -4,9 +4,6 @@
   "description": "Google places autocomplete input for ReactJS.",
   "main": "build/index.js",
   "module": "build/index.es.js",
-  "files": [
-    "build"
-  ],
   "scripts": {
     "build": "rollup -c",
     "postbuild": "node ./build-utils/postBuild",
