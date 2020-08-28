@@ -1,12 +1,10 @@
-const INJECTION_STATE_NOT_YET = 'not yet';
-const INJECTION_STATE_IN_PROGRESS = 'in progress';
-const INJECTION_STATE_DONE = 'done';
+import * as constants from '../data/constants';
 
-let injectionState = INJECTION_STATE_NOT_YET;
-let injectionError = null;
+let injectionState: string = constants.INJECTION_STATE_NOT_YET;
+let injectionError: Error | null = null;
 
-let onScriptLoadCallbacks = [];
-let onScriptLoadErrorCallbacks = [];
+let onScriptLoadCallbacks: (() => void)[] = [];
+let onScriptLoadErrorCallbacks: ((error: Error | null) => void)[] = [];
 
 // Returns a promise that resolves
 //   - when the script becomes available or
@@ -18,13 +16,13 @@ let onScriptLoadErrorCallbacks = [];
 // Note that only the first call of the function will actually trigger an
 // injection with the provided API key, the subsequent calls will be
 // resolved/rejected when the first one succeeds/fails.
-const injectScript = (apiKey) => {
+const injectScript = (apiKey: string): Promise<void> => {
   switch (injectionState) {
-    case INJECTION_STATE_DONE:
+    case constants.INJECTION_STATE_DONE:
 
       return injectionError ? Promise.reject(injectionError) : Promise.resolve();
 
-    case INJECTION_STATE_IN_PROGRESS:
+    case constants.INJECTION_STATE_IN_PROGRESS:
 
       return new Promise((resolve, reject) => {
         onScriptLoadCallbacks.push(resolve);
@@ -33,7 +31,7 @@ const injectScript = (apiKey) => {
 
     default: // INJECTION_STATE_NOT_YET
 
-      injectionState = INJECTION_STATE_IN_PROGRESS;
+      injectionState = constants.INJECTION_STATE_IN_PROGRESS;
 
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -68,7 +66,7 @@ const injectScript = (apiKey) => {
           script.removeEventListener('error', onScriptLoadError);
           onScriptLoadCallbacks = [];
           onScriptLoadErrorCallbacks = [];
-          injectionState = INJECTION_STATE_DONE;
+          injectionState = constants.INJECTION_STATE_DONE;
         };
 
         script.addEventListener('load', onScriptLoad);

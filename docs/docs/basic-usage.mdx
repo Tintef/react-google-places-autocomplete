@@ -1,0 +1,47 @@
+---
+id: basic-usage
+title: Basics
+sidebar_label: Basics
+---
+
+## Install
+
+```bash
+npm install --save react-google-places-autocomplete
+```
+or
+```
+yarn add react-google-places-autocomplete
+```
+
+## Basic Usage
+
+### Load Google Maps JavaScript API
+
+First, generate an `apiKey` in order to use it to load [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/). Then, use it to load it in your HTML file, adding a script tag:
+
+```html
+<script
+  type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"
+/>
+```
+
+**Note:** if you pass down the `apiKey` prop to the component, you can skip loading the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), as the component will inject that script on the page.
+
+### Use the component
+
+```js
+import React from 'react';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
+const Component = () => (
+  <div>
+    <GooglePlacesAutocomplete />
+  </div>
+);
+
+export default Component;
+```
+
+
