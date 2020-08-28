@@ -1,6 +1,6 @@
 import { Props, OptionTypeBase } from 'react-select';
 
-interface LatLng {
+export interface LatLng {
   lat: number;
   lng: number;
 }
