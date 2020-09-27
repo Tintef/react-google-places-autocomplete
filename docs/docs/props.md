@@ -81,7 +81,7 @@ For example:
 ```jsx
 <GooglePlacesAutocomplete
   onLoadFailed={(error) => (
-    console.error("Could not inject Google script", error);
+    console.error("Could not inject Google script", error)
   )}
 />
 ```
