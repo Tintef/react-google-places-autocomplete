@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/npm/dm/react-google-places-autocomplete.svg"/>
   </a>
   <a href="https://travis-ci.org/tintef/react-google-places-autocomplete">
-    <img src="https://img.shields.io/travis/tintef/react-google-places-autocomplete/master.svg?logo=travis"/>
+    <img src="https://www.travis-ci.com/Tintef/react-google-places-autocomplete.svg?branch=master" />
   </a>
   <a href="https://packagequality.com/#?package=react-google-places-autocomplete">
     <img src="https://npm.packagequality.com/shield/react-google-places-autocomplete.svg"/>
