@@ -9,7 +9,9 @@ sidebar_label: Basics
 ```bash
 npm install --save react-google-places-autocomplete
 ```
+
 or
+
 ```
 yarn add react-google-places-autocomplete
 ```
@@ -32,8 +34,8 @@ First, generate an `apiKey` in order to use it to load [Google Maps JavaScript A
 ### Use the component
 
 ```js
-import React from 'react';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import React from "react";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const Component = () => (
   <div>
@@ -44,4 +46,18 @@ const Component = () => (
 export default Component;
 ```
 
+### Save the selected result to component state
 
+```js
+import ...
+
+const Component = () => (
+  const [value, setValue] = useState(null);
+  <div>
+    <GooglePlacesAutocomplete selectProps={{
+          value,
+          onChange: setValue,
+        }} />
+  </div>
+
+```
