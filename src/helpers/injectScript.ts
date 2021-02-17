@@ -1,4 +1,5 @@
 import * as constants from '../data/constants';
+import { ApiOptions } from '../GooglePlacesAutocomplete.types';
 
 let injectionState: string = constants.INJECTION_STATE_NOT_YET;
 let injectionError: Error | null = null;
@@ -16,20 +17,29 @@ let onScriptLoadErrorCallbacks: ((error: Error | null) => void)[] = [];
 // Note that only the first call of the function will actually trigger an
 // injection with the provided API key, the subsequent calls will be
 // resolved/rejected when the first one succeeds/fails.
-const injectScript = (apiKey: string): Promise<void> => {
+const injectScript = (
+  apiKey: string,
+  apiOptions: ApiOptions
+): Promise<void> => {
+  const options = Object.entries(apiOptions).reduce((acc, cur) => {
+    const [key, value] = cur;
+    return `${acc}&${key}=${value}`;
+  }, '');
+
   switch (injectionState) {
     case constants.INJECTION_STATE_DONE:
-
-      return injectionError ? Promise.reject(injectionError) : Promise.resolve();
+      return injectionError
+        ? Promise.reject(injectionError)
+        : Promise.resolve();
 
     case constants.INJECTION_STATE_IN_PROGRESS:
-
       return new Promise((resolve, reject) => {
         onScriptLoadCallbacks.push(resolve);
         onScriptLoadErrorCallbacks.push(reject);
       });
 
-    default: // INJECTION_STATE_NOT_YET
+    default:
+      // INJECTION_STATE_NOT_YET
 
       injectionState = constants.INJECTION_STATE_IN_PROGRESS;
 
@@ -37,7 +47,7 @@ const injectScript = (apiKey: string): Promise<void> => {
         const script = document.createElement('script');
 
         script.type = 'text/javascript';
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places${options}`;
         script.async = true;
         script.defer = true;
 
@@ -51,7 +61,9 @@ const injectScript = (apiKey: string): Promise<void> => {
         };
         const onScriptLoadError = () => {
           // Reject all promises with this error
-          injectionError = new Error('[react-google-places-autocomplete] Could not inject Google script');
+          injectionError = new Error(
+            '[react-google-places-autocomplete] Could not inject Google script'
+          );
           // Reject current promise with the error
           reject(injectionError);
           // Reject all pending promises in their respective order with the error

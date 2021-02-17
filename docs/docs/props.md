@@ -7,6 +7,7 @@ sidebar_label: Props
 ```tsx
 interface GooglePlacesAutocompleteProps {
   apiKey?: string;                               // default: ''
+  apiOptions?: ApiOptions;                       // default: { }
   autocompletionRequest?: AutocompletionRequest; // default: { }
   debounce?: number;                             // default: 300
   minLengthAutocomplete?: number;                // default: 0
@@ -22,6 +23,28 @@ Where `SelectProps` are the ones accepted by [react-select](https://react-select
 ## `apiKey`
 
 If this parameter is passed, the component will inject the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) usign this `apiKey`. So there's no need to manually add the `script` tag to yout HTML document.
+
+
+## `apiOptions`
+
+Autocompletion request object to add restrictions to the search. Let's see the shape this prop can take:
+
+```tsx
+export interface ApiOptions {
+  language?: string;
+  region?: string;
+}
+```
+
+Here's an example on how to use it:
+
+```jsx
+<GooglePlacesAutocomplete
+  apiOptions={{ language: 'fr', region: 'fr' }}
+/>
+```
+
+**Note:** for more information check [localization documentation](https://developers.google.com/maps/documentation/javascript/localization).
 
 
 ## `autocompletionRequest`
