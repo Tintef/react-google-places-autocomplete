@@ -17,17 +17,12 @@ let onScriptLoadErrorCallbacks: ((error: Error | null) => void)[] = [];
 // Note that only the first call of the function will actually trigger an
 // injection with the provided API key, the subsequent calls will be
 // resolved/rejected when the first one succeeds/fails.
-const injectScript = (
-  apiKey: string,
-  apiOptions: ApiOptions
-): Promise<void> => {
-  const options = Object.entries(apiOptions).reduce((acc, [key, value) => `${acc}&${key}=${value}`, '');
+const injectScript = (apiKey: string, apiOptions: ApiOptions): Promise<void> => {
+  const options = Object.entries(apiOptions).reduce((acc, [key, value]) => `${acc}&${key}=${value}`, '');
 
   switch (injectionState) {
     case constants.INJECTION_STATE_DONE:
-      return injectionError
-        ? Promise.reject(injectionError)
-        : Promise.resolve();
+      return injectionError ? Promise.reject(injectionError) : Promise.resolve();
 
     case constants.INJECTION_STATE_IN_PROGRESS:
       return new Promise((resolve, reject) => {
@@ -58,9 +53,7 @@ const injectScript = (
         };
         const onScriptLoadError = () => {
           // Reject all promises with this error
-          injectionError = new Error(
-            '[react-google-places-autocomplete] Could not inject Google script'
-          );
+          injectionError = new Error('[react-google-places-autocomplete] Could not inject Google script');
           // Reject current promise with the error
           reject(injectionError);
           // Reject all pending promises in their respective order with the error
