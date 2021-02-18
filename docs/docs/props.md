@@ -40,6 +40,7 @@ Here's an example on how to use it:
 
 ```jsx
 <GooglePlacesAutocomplete
+  apiKey="***************"
   apiOptions={{ language: 'fr', region: 'fr' }}
 />
 ```
