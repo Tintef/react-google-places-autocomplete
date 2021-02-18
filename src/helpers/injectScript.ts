@@ -22,16 +22,17 @@ const injectScript = (apiKey: string, apiOptions: ApiOptions): Promise<void> => 
 
   switch (injectionState) {
     case constants.INJECTION_STATE_DONE:
+
       return injectionError ? Promise.reject(injectionError) : Promise.resolve();
 
     case constants.INJECTION_STATE_IN_PROGRESS:
+
       return new Promise((resolve, reject) => {
         onScriptLoadCallbacks.push(resolve);
         onScriptLoadErrorCallbacks.push(reject);
       });
 
-    default:
-      // INJECTION_STATE_NOT_YET
+    default: // INJECTION_STATE_NOT_YET
 
       injectionState = constants.INJECTION_STATE_IN_PROGRESS;
 
