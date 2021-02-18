@@ -27,7 +27,7 @@ If this parameter is passed, the component will inject the [Google Maps JavaScri
 
 ## `apiOptions`
 
-Autocompletion request object to add restrictions to the search. Let's see the shape this prop can take:
+Object to configure the google script to inject. Let's see the shape this prop can take:
 
 ```tsx
 export interface ApiOptions {
