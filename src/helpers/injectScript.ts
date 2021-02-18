@@ -21,10 +21,7 @@ const injectScript = (
   apiKey: string,
   apiOptions: ApiOptions
 ): Promise<void> => {
-  const options = Object.entries(apiOptions).reduce((acc, cur) => {
-    const [key, value] = cur;
-    return `${acc}&${key}=${value}`;
-  }, '');
+  const options = Object.entries(apiOptions).reduce((acc, [key, value) => `${acc}&${key}=${value}`, '');
 
   switch (injectionState) {
     case constants.INJECTION_STATE_DONE:
