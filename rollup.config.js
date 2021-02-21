@@ -2,6 +2,8 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "rollup-plugin-typescript2";
+import bundleSize from "rollup-plugin-bundle-size";
+import { terser } from "rollup-plugin-terser";
 
 import pkg from "./package.json";
 
@@ -23,6 +25,17 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    typescript(),
+    typescript({
+      clean: true,
+      abortOnError: true,
+    }),
+    terser({
+      compress: {
+        keep_infinity: true,
+        pure_getters: true,
+        passes: 10,
+      },
+    }),
+    bundleSize(),
   ],
 };
