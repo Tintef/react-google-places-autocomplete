@@ -8,6 +8,7 @@ import autocompletionRequestBuilder from './helpers/autocompletionRequestBuilder
 
 const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   apiKey = '',
+  apiOptions = {},
   autocompletionRequest = {},
   debounce = 300,
   minLengthAutocomplete = 0,
@@ -47,7 +48,7 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   useEffect(() => {
     const init = async () => {
       try {
-        if (apiKey) await injectScript(apiKey);
+        if (apiKey) await injectScript(apiKey, apiOptions);
         initializeService();
       } catch (error) {
         onLoadFailed(error);

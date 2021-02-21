@@ -1,4 +1,5 @@
 import * as constants from '../data/constants';
+import { ApiOptions } from '../GooglePlacesAutocomplete.types';
 
 let injectionState: string = constants.INJECTION_STATE_NOT_YET;
 let injectionError: Error | null = null;
@@ -16,7 +17,9 @@ let onScriptLoadErrorCallbacks: ((error: Error | null) => void)[] = [];
 // Note that only the first call of the function will actually trigger an
 // injection with the provided API key, the subsequent calls will be
 // resolved/rejected when the first one succeeds/fails.
-const injectScript = (apiKey: string): Promise<void> => {
+const injectScript = (apiKey: string, apiOptions: ApiOptions): Promise<void> => {
+  const options = Object.entries(apiOptions).reduce((acc, [key, value]) => `${acc}&${key}=${value}`, '');
+
   switch (injectionState) {
     case constants.INJECTION_STATE_DONE:
 
@@ -37,7 +40,7 @@ const injectScript = (apiKey: string): Promise<void> => {
         const script = document.createElement('script');
 
         script.type = 'text/javascript';
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places${options}`;
         script.async = true;
         script.defer = true;
 
