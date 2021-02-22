@@ -3,8 +3,8 @@ import AsyncSelect from 'react-select/async';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
 import GooglePlacesAutocompleteProps, { AutocompletionRequest }from './GooglePlacesAutocomplete.types';
-import injectScript from './helpers/injectScript';
 import autocompletionRequestBuilder from './helpers/autocompletionRequestBuilder';
+import { Loader } from '@googlemaps/js-api-loader';
 
 const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   apiKey = '',
@@ -48,7 +48,7 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   useEffect(() => {
     const init = async () => {
       try {
-        if (apiKey) await injectScript(apiKey, apiOptions);
+        await new Loader({apiKey, ...apiOptions}).load();
         initializeService();
       } catch (error) {
         onLoadFailed(error);
