@@ -46,6 +46,8 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   }
 
   useEffect(() => {
+    apiOptions.libraries = apiOptions.libraries || ['places'];
+
     const init = async () => {
       try {
         await new Loader({apiKey, ...apiOptions}).load();
