@@ -50,7 +50,7 @@
     "rollup-plugin-typescript2": "^0.27.2"
   },
   "dependencies": {
-    "@types/googlemaps": "^3.39.13",
+    "@types/google.maps": "^3.44.1",
     "react-select": "^3.1.0",
     "typescript": "^3.9.7",
     "use-debounce": "^3.4.3"
