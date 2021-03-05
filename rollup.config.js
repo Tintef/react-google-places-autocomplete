@@ -29,13 +29,7 @@ export default {
       clean: true,
       abortOnError: true,
     }),
-    terser({
-      compress: {
-        keep_infinity: true,
-        pure_getters: true,
-        passes: 10,
-      },
-    }),
+    terser({}),
     bundleSize(),
   ],
 };
