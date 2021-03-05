@@ -1,3 +1,4 @@
+import { LoaderOptions } from '@googlemaps/js-api-loader';
 import { Props, OptionTypeBase } from 'react-select';
 
 export interface LatLng {
@@ -14,14 +15,9 @@ export interface AutocompletionRequest {
   types?: string[];
 }
 
-export interface ApiOptions {
-  language?: string;
-  region?: string;
-}
-
 export default interface GooglePlacesAutocompleteProps {
   apiKey?: string;
-  apiOptions?: ApiOptions;
+  apiOptions?: Partial<LoaderOptions>;
   autocompletionRequest?: AutocompletionRequest;
   debounce?: number;
   minLengthAutocomplete?: number;
