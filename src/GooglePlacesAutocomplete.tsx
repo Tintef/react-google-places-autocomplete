@@ -55,7 +55,7 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
       }
     }
 
-    init();
+    if (apiKey) init();
   }, []);
 
   return (
