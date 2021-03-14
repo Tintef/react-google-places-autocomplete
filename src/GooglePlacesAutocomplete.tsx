@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
-import GooglePlacesAutocompleteProps, { AutocompletionRequest }from './GooglePlacesAutocomplete.types';
+import GooglePlacesAutocompleteProps, {
+  AutocompletionRequest,
+  GooglePlacesAutocompleteHandle,
+} from './GooglePlacesAutocomplete.types';
 import autocompletionRequestBuilder from './helpers/autocompletionRequestBuilder';
 import { Loader } from '@googlemaps/js-api-loader';
 
-const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
+const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutocompleteHandle, GooglePlacesAutocompleteProps> = ({
   apiKey = '',
   apiOptions = {},
   autocompletionRequest = {},
@@ -15,7 +18,7 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   selectProps = {},
   onLoadFailed = console.error,
   withSessionToken = false,
-} : GooglePlacesAutocompleteProps) : React.ReactElement => {
+} : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
   const [placesService, setPlacesService] = useState<google.maps.places.AutocompleteService | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<google.maps.places.AutocompleteSessionToken | undefined>(undefined);
   const [fetchSuggestions] = useDebouncedCallback((value: string, cb: (options: OptionsType<OptionTypeBase>) => void): void => {
@@ -41,9 +44,17 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
     if (!window.google.maps.places) throw new Error('[react-google-places-autocomplete]: Google maps places script not loaded');
 
     setPlacesService(new window.google.maps.places.AutocompleteService());
-    /* setServiceStatus(window.google.maps.places.PlacesServiceStatus.OK); */
     setSessionToken(new google.maps.places.AutocompleteSessionToken());
   }
+
+  useImperativeHandle(ref, () => ({
+    getSessionToken: () => {
+      return sessionToken;
+    },
+    refreshSessionToken: () => {
+      setSessionToken(new google.maps.places.AutocompleteSessionToken());
+    }
+  }), [sessionToken]);
 
   useEffect(() => {
     const init = async () => {
@@ -68,5 +79,4 @@ const GooglePlacesAutocomplete: React.FC<GooglePlacesAutocompleteProps> = ({
   );
 };
 
-
-export default GooglePlacesAutocomplete;
+export default forwardRef(GooglePlacesAutocomplete);

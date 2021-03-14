@@ -1,6 +1,11 @@
 import { LoaderOptions } from '@googlemaps/js-api-loader';
 import { Props, OptionTypeBase } from 'react-select';
 
+export type GooglePlacesAutocompleteHandle = {
+  getSessionToken: () => google.maps.places.AutocompleteSessionToken | undefined;
+  refreshSessionToken: () => void;
+}
+
 export interface LatLng {
   lat: number;
   lng: number;

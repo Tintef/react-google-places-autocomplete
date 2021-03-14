@@ -3,6 +3,7 @@ module.exports = {
     'React Google Places Autocomplete': [
       'basic-usage',
       'props',
+      'exposed-methods',
       'examples',
       'v2-to-v3',
     ],
