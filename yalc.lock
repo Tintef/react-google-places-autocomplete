@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-google-places-autocomplete": {
+      "signature": "f7b71dd912c67a23298a67c4f4f1586e",
+      "file": true
+    }
+  }
+}

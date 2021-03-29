@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
@@ -19,6 +19,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   onLoadFailed = console.error,
   withSessionToken = false,
 } : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
+  const selectRef = useRef<any>(null);
   const [placesService, setPlacesService] = useState<google.maps.places.AutocompleteService | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<google.maps.places.AutocompleteSessionToken | undefined>(undefined);
   const [fetchSuggestions] = useDebouncedCallback((value: string, cb: (options: OptionsType<OptionTypeBase>) => void): void => {
@@ -56,11 +57,18 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
     }
   }), [sessionToken]);
 
+  const focusSelect = () => {
+    if (selectRef.current) {
+      selectRef.current.focus();
+    }
+  };
+
   useEffect(() => {
     const init = async () => {
       try {
         await new Loader({ apiKey, ...{ libraries: ['places'], ...apiOptions }}).load();
         initializeService();
+        focusSelect();
       } catch (error) {
         onLoadFailed(error);
       }
@@ -75,6 +83,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
       {...selectProps}
       loadOptions={fetchSuggestions}
       getOptionValue={({ value }) => value.place_id}
+      ref={selectRef}
     />
   );
 };
