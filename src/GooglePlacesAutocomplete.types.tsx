@@ -1,4 +1,5 @@
 import { LoaderOptions } from '@googlemaps/js-api-loader';
+import { MutableRefObject } from 'react';
 import { Props, OptionTypeBase } from 'react-select';
 
 export type GooglePlacesAutocompleteHandle = {
@@ -28,5 +29,6 @@ export default interface GooglePlacesAutocompleteProps {
   minLengthAutocomplete?: number;
   onLoadFailed?: (error: Error) => void;
   selectProps?: Props<OptionTypeBase>;
+  selectRef?: MutableRefObject<any>;
   withSessionToken?: boolean;
 }

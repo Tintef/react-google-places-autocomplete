@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
@@ -16,10 +16,10 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   debounce = 300,
   minLengthAutocomplete = 0,
   selectProps = {},
+  selectRef = undefined,
   onLoadFailed = console.error,
-  withSessionToken = false,
+  withSessionToken = false
 } : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
-  const selectRef = useRef<any>(null);
   const [placesService, setPlacesService] = useState<google.maps.places.AutocompleteService | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<google.maps.places.AutocompleteSessionToken | undefined>(undefined);
   const [fetchSuggestions] = useDebouncedCallback((value: string, cb: (options: OptionsType<OptionTypeBase>) => void): void => {
@@ -58,7 +58,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   }), [sessionToken]);
 
   const focusSelect = () => {
-    if (selectRef.current) {
+    if (selectRef) {
       selectRef.current.focus();
     }
   };
