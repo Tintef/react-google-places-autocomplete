@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "3.3.0+f7b71dd9",
+  "version": "3.3.0+7ac95d0c",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "build/index.js",
   "module": "build/index.es.js",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.11.1",
     "@types/google.maps": "^3.44.1",
+    "react-google-places-autocomplete": "file:.yalc/react-google-places-autocomplete",
     "react-select": "^4.1.0",
     "typescript": "^3.9.7",
     "use-debounce": "^3.4.3"
@@ -41,5 +42,5 @@
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"
   },
-  "yalcSig": "f7b71dd912c67a23298a67c4f4f1586e"
+  "yalcSig": "7ac95d0c6ba03f424f287e3db09a72b5"
 }
