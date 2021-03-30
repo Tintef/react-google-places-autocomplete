@@ -68,7 +68,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
 
     if (apiKey) init();
     else initializeService();
-  }, []);
+  }, [apiKey, apiOptions, onLoadFailed]);
 
   return (
     <AsyncSelect
