@@ -59,7 +59,9 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   useEffect(() => {
     const init = async () => {
       try {
-        await new Loader({ apiKey, ...{ libraries: ['places'], ...apiOptions }}).load();
+        if ( !window.google || !window.google.maps || !window.google.maps.places ) {
+          await new Loader({ apiKey, ...{ libraries: ['places'], ...apiOptions }}).load();
+        }
         initializeService();
       } catch (error) {
         onLoadFailed(error);
