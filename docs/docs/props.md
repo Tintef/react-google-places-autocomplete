@@ -6,14 +6,15 @@ sidebar_label: Props
 
 ```tsx
 interface GooglePlacesAutocompleteProps {
-  apiKey?: string;                               // default: ''
-  apiOptions?: ApiOptions;                       // default: { }
-  autocompletionRequest?: AutocompletionRequest; // default: { }
-  debounce?: number;                             // default: 300
-  minLengthAutocomplete?: number;                // default: 0
-  onLoadFailed?: (error: Error) => void;         // default: console.error
-  selectProps?: SelectProps;                     // default: { }
-  withSessionToken?: boolean;                    // default: false
+  apiKey?: string;                                              // default: ''
+  apiOptions?: ApiOptions;                                      // default: { }
+  autocompletionRequest?: AutocompletionRequest;                // default: { }
+  debounce?: number;                                            // default: 300
+  minLengthAutocomplete?: number;                               // default: 0
+  onLoadFailed?: (error: Error) => void;                        // default: console.error
+  selectProps?: SelectProps;                                    // default: { }
+  filterResults?: (results: AutocompletePrediction) => boolean; // default: () => true
+  withSessionToken?: boolean;                                   // default: false
 }
 ```
 
@@ -123,6 +124,18 @@ const [value, setValue] = useState(null);
     value,
     onChange: setValue,
   }}
+/>
+```
+
+## `filterResults`
+
+The Google Place API does not allow you to filter by some attributes of a place, like the `types` response. This optional prop allows you to filter the results that are displayed to the user.
+
+For example, if you only wanted to look for places with a type of `lodging`:
+
+```jsx
+<GooglePlacesAutocomplete
+  filterResults={(result) => result.types.includes('lodging')}
 />
 ```
 

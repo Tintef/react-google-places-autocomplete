@@ -28,5 +28,6 @@ export default interface GooglePlacesAutocompleteProps {
   minLengthAutocomplete?: number;
   onLoadFailed?: (error: Error) => void;
   selectProps?: Props<OptionTypeBase>;
+  filterResults?: (results: google.maps.places.AutocompletePrediction) => boolean;
   withSessionToken?: boolean;
 }

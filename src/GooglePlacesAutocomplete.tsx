@@ -16,6 +16,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   debounce = 300,
   minLengthAutocomplete = 0,
   selectProps = {},
+  filterResults = () => true,
   onLoadFailed = console.error,
   withSessionToken = false,
 } : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
@@ -33,7 +34,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
         value,
         withSessionToken && sessionToken,
       ), (suggestions) => {
-        cb((suggestions || []).map(suggestion => ({ label: suggestion.description, value: suggestion })));
+        cb((suggestions || []).filter(filterResults).map(suggestion => ({ label: suggestion.description, value: suggestion })));
       },
     );
   }, debounce);
