@@ -50,7 +50,7 @@
     "rollup-plugin-typescript2": "^0.27.2"
   },
   "dependencies": {
-    "@googlemaps/js-api-loader": "^1.11.1",
+    "@googlemaps/js-api-loader": "^1.12.3",
     "@types/google.maps": "^3.44.1",
     "react-select": "^4.3.1",
     "typescript": "^3.9.7",
