@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.11.1",
-    "@types/google.maps": "^3.44.1",
+    "@types/google.maps": "^3.46.1",
     "react-select": "^4.3.1",
     "typescript": "^3.9.7",
     "use-debounce": "^3.4.3"
