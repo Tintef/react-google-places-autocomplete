@@ -117,10 +117,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@googlemaps/js-api-loader@^1.12.3":
-  version "1.12.4"
-  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.12.4.tgz#9248ed6ca3ab5055158b2ea1d7eabd54251849ab"
-  integrity sha512-CG2ldySYFP+Pf6ymtAp9fUQGltEdOJCv2+LEiQjVZySqSN9QhqVbIFdFDKOu6cirqXXvpVcKYYLsg/K1H8XN0Q==
+"@googlemaps/js-api-loader@^1.13.4":
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.13.6.tgz#afacf330cae6f126c68548aa72265fb4e33a6793"
+  integrity sha512-wjsNABaYaHg9Y/7sry9r4mudugyWJzNDYNMNJBbaDACtS/XvASzzIcgGgjQ1euHExJA6rEUg5qGu/XR7zw+Xhw==
   dependencies:
     fast-deep-equal "^3.1.3"
 
