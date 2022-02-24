@@ -187,10 +187,10 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/google.maps@^3.46.1":
-  version "3.47.0"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.47.0.tgz#0e5d11339fbef30becbb4e9016be94c4aad6fbab"
-  integrity sha512-/Auj3324mp/E/T5QXAQnXcxtSUgsC1AH//Zt3COYqcwNCmVZNSwytl15jzyjxLcYA0ZDBE1ZBWTawEJPxZqR/w==
+"@types/google.maps@^3.47.3":
+  version "3.48.0"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.48.0.tgz#6146ec3120756bf813dddfd2e09ff5382cbee7ac"
+  integrity sha512-1cXVa8jg9AYOIPxFAl11iCPcNVcKJ1xSalWrUATx0Q/v9B2fZGuGnoeWbJA3bNDP9LcFeOJkRkZiFMfxG1m5hA==
 
 "@types/json-schema@^7.0.3":
   version "7.0.9"

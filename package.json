@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.12.3",
-    "@types/google.maps": "^3.46.1",
+    "@types/google.maps": "^3.47.3",
     "react-select": "^4.3.1",
     "use-debounce": "^3.4.3"
   },
