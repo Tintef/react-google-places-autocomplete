@@ -6,6 +6,7 @@ import typescript from "rollup-plugin-typescript2";
 import bundleSize from "rollup-plugin-bundle-size";
 import { terser } from "rollup-plugin-terser";
 import autoExternal from 'rollup-plugin-auto-external';
+import { visualizer } from "rollup-plugin-visualizer";
 
 import pkg from "./package.json";
 
@@ -39,6 +40,7 @@ export default {
     }),
     terser({}),
     bundleSize(),
+    visualizer(),
   ],
 };
 
