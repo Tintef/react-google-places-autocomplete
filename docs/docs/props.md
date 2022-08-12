@@ -22,7 +22,7 @@ Where `SelectProps` are the ones accepted by [react-select](https://react-select
 
 ## `apiKey`
 
-If this parameter is passed, the component will inject the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) usign this `apiKey`. So there's no need to manually add the `script` tag to yout HTML document.
+If this parameter is passed, the component will inject the [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) using this `apiKey`. So there's no need to manually add the `script` tag to yout HTML document.
 
 
 ## `apiOptions`
