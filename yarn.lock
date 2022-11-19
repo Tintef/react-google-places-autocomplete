@@ -110,10 +110,17 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+<<<<<<< HEAD
+"@googlemaps/js-api-loader@^1.12.3":
+  version "1.12.4"
+  resolved "https://registry.npmjs.org/@googlemaps/js-api-loader/-/js-api-loader-1.12.4.tgz"
+  integrity sha512-CG2ldySYFP+Pf6ymtAp9fUQGltEdOJCv2+LEiQjVZySqSN9QhqVbIFdFDKOu6cirqXXvpVcKYYLsg/K1H8XN0Q==
+=======
 "@googlemaps/js-api-loader@^1.13.4":
   version "1.13.6"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.13.6.tgz#afacf330cae6f126c68548aa72265fb4e33a6793"
   integrity sha512-wjsNABaYaHg9Y/7sry9r4mudugyWJzNDYNMNJBbaDACtS/XvASzzIcgGgjQ1euHExJA6rEUg5qGu/XR7zw+Xhw==
+>>>>>>> master
   dependencies:
     fast-deep-equal "^3.1.3"
 
@@ -175,10 +182,17 @@
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.39.tgz"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
+<<<<<<< HEAD
+"@types/google.maps@^3.50.0":
+  version "3.50.1"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.50.1.tgz#cd76d32ef325b3d2050314c24ef048f9e38476c7"
+  integrity sha512-Wd3+cZwIk2DhDDosYCvXREvBfRAy9eXTf44YOcOKXhzN88AnLOCO+vrKH0N+QiP3SUtf7A6hn3yVJrMdXIqp1g==
+=======
 "@types/google.maps@^3.49.1":
   version "3.49.2"
   resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.49.2.tgz"
   integrity sha512-ZO1qWciukqED9qcUNW7OaPXWnTlT+tO3WcYkmudZyQW2BqD7TlMFRrdqSCoqfwKhERCwBA5A/YZt/g5A3BqgLQ==
+>>>>>>> master
 
 "@types/json-schema@^7.0.3":
   version "7.0.9"
