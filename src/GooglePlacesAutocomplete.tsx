@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import AsyncSelect from 'react-select/async';
+import AsyncCreatableSelect from 'react-select/creatable';
 import { OptionsType, OptionTypeBase } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
 import GooglePlacesAutocompleteProps, {
@@ -18,6 +19,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   selectProps = {},
   onLoadFailed = console.error,
   withSessionToken = false,
+  creatable = false,
 } : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
   const [placesService, setPlacesService] = useState<google.maps.places.AutocompleteService | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<google.maps.places.AutocompleteSessionToken | undefined>(undefined);
@@ -72,8 +74,10 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
     else initializeService();
   }, []);
 
+  const Select = creatable ? AsyncCreatableSelect : AsyncSelect
+
   return (
-    <AsyncSelect
+    <Select
       {...selectProps}
       loadOptions={fetchSuggestions}
       getOptionValue={({ value }) => value.place_id}
