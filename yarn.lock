@@ -215,10 +215,10 @@
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.39.tgz"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/google.maps@^3.50.0":
-  version "3.50.1"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.50.1.tgz#cd76d32ef325b3d2050314c24ef048f9e38476c7"
-  integrity sha512-Wd3+cZwIk2DhDDosYCvXREvBfRAy9eXTf44YOcOKXhzN88AnLOCO+vrKH0N+QiP3SUtf7A6hn3yVJrMdXIqp1g==
+"@types/google.maps@^3.50.4":
+  version "3.50.5"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.50.5.tgz#a0d12675b547205fc163c4b8d999db305ba3862a"
+  integrity sha512-RuZf1MJtctGlpW+Gd4a/eGtAufUDjMf+eyN1l+B3fbe2YLScJbg8KEljJfb+6vnSPFAeM1/48geVIEg3vqOkxw==
 
 "@types/json-schema@^7.0.3":
   version "7.0.9"
