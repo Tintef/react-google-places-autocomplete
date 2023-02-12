@@ -2,13 +2,13 @@ import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'rea
 import AsyncSelect from 'react-select/async';
 import { Options } from 'react-select';
 import { useDebouncedCallback } from 'use-debounce';
+import { Loader } from '@googlemaps/js-api-loader';
 
 import GooglePlacesAutocompleteProps, {
   AutocompletionRequest,
   GooglePlacesAutocompleteHandle,
-} from './GooglePlacesAutocomplete.types';
-import autocompletionRequestBuilder from './helpers/autocompletionRequestBuilder';
-import { Loader } from '@googlemaps/js-api-loader';
+} from './types';
+import autocompletionRequestBuilder from './helpers/autocompletion-request-builder';
 
 const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutocompleteHandle, GooglePlacesAutocompleteProps> = ({
   apiKey = '',
