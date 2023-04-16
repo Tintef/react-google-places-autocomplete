@@ -1,9 +1,7 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import AsyncSelect from 'react-select/async';
 
-import GooglePlacesAutocompleteProps, {
-  GooglePlacesAutocompleteHandle,
-} from './types';
+import GooglePlacesAutocompleteProps, { GooglePlacesAutocompleteHandle } from './types';
 import usePlacesService from './hooks/use-places-service';
 import useFetchSuggestions from './hooks/use-fetch-suggestions';
 
