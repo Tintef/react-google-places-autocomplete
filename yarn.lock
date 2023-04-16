@@ -1907,10 +1907,10 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react-select@^5.7.0":
-  "integrity" "sha512-lJGiMxCa3cqnUr2Jjtg9YHsaytiZqeNOKeibv6WF5zbK/fPegZ1hg3y/9P1RZVLhqBTs0PfqQLKuAACednYGhQ=="
-  "resolved" "https://registry.npmjs.org/react-select/-/react-select-5.7.0.tgz"
-  "version" "5.7.0"
+"react-select@^5.7.2":
+  "integrity" "sha512-cTlJkQ8YjV6T/js8wW0owTzht0hHGABh29vjLscY4HfZGkv7hc3FFTmRp9NzY/Ib1uQ36GieAKEjxpHdpCFpcA=="
+  "resolved" "https://registry.npmjs.org/react-select/-/react-select-5.7.2.tgz"
+  "version" "5.7.2"
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"
