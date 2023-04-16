@@ -1,4 +1,4 @@
-import { AutocompletionRequest } from '../GooglePlacesAutocomplete.types';
+import { AutocompletionRequest } from '../types';
 
 export default (
   autocompletionRequest: AutocompletionRequest,

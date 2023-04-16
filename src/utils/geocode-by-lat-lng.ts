@@ -1,4 +1,4 @@
-import { LatLng } from '../GooglePlacesAutocomplete.types';
+import { LatLng } from '../types';
 
 const geocodeByLatLng = (latLng: LatLng): Promise<google.maps.GeocoderResult[]> => {
   const geocoder = new window.google.maps.Geocoder();
