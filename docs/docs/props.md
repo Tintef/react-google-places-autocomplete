@@ -65,7 +65,6 @@ interface AutocompletionRequest {
   offset?: number;
   radius?: number;
   types?: string[];
-  fields?: string[];
 }
 ```
 

@@ -19,7 +19,6 @@ export interface AutocompletionRequest {
   offset?: number;
   radius?: number;
   types?: string[];
-  fields?: string[];
 }
 
 export type Option = {
