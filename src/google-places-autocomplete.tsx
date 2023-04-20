@@ -22,6 +22,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
     placesService,
     sessionToken,
     withSessionToken: args.withSessionToken ?? false,
+    suggestionsFilter: args.suggestionsFilter,
   });
 
   useImperativeHandle(ref, () => ({

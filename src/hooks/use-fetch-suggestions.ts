@@ -12,6 +12,7 @@ type UseFetchSuggestionsArg = {
   placesService?: google.maps.places.AutocompleteService;
   sessionToken?: google.maps.places.AutocompleteSessionToken;
   withSessionToken: boolean;
+  suggestionsFilter?: (suggestions: google.maps.places.AutocompletePrediction[]) => google.maps.places.AutocompletePrediction[];
 }
 
 const useFetchSuggestions = (arg: UseFetchSuggestionsArg): ((value: string, cb: CBType) => void) => {
@@ -22,6 +23,7 @@ const useFetchSuggestions = (arg: UseFetchSuggestionsArg): ((value: string, cb: 
     placesService,
     sessionToken,
     withSessionToken,
+    suggestionsFilter,
   } = arg;
 
   const [fetchSuggestions] = useDebouncedCallback((value: string, cb: CBType): void => {
@@ -36,7 +38,9 @@ const useFetchSuggestions = (arg: UseFetchSuggestionsArg): ((value: string, cb: 
         value,
         withSessionToken && sessionToken,
       ), (suggestions) => {
-        cb((suggestions || []).map(suggestion => ({ label: suggestion.description, value: suggestion })));
+        let filteredSuggestions = suggestions || [];
+        if(suggestionsFilter && suggestions) filteredSuggestions = suggestionsFilter(suggestions);
+        cb((filteredSuggestions).map(suggestion => ({ label: suggestion.description, value: suggestion })));
       },
     );
   }, debounce);
