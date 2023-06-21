@@ -21,7 +21,7 @@ export default (
   }
   
   if (locationBias) {
-    console.warn(location);
+
     if(!locationBiasRadius)
       throw new Error('If you are defining a location bias, you must define the location bias radius');
       

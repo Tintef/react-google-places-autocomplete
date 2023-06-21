@@ -37,4 +37,6 @@ export default interface GooglePlacesAutocompleteProps {
   selectProps?: AsyncProps<Option, false, GroupBase<Option>>;
   withSessionToken?: boolean;
   suggestionsFilter?: (suggestions: google.maps.places.AutocompletePrediction[]) => google.maps.places.AutocompletePrediction[];
+  locationBias?: LatLng;
+  locationBiasRadius?: number;
 }
