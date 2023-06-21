@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "module": "build/index.es.js",
   "scripts": {
+    "prepare": "npm run build",
     "build": "rollup -c",
     "postbuild": "node ./build-utils/postBuild",
     "lint": "eslint . --ext ts,tsx ."
