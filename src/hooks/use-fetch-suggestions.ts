@@ -33,7 +33,7 @@ const useFetchSuggestions = (arg: UseFetchSuggestionsArg): ((value: string, cb: 
     let autocompletionReq: AutocompletionRequest = { ...autocompletionRequest };
 
     //Only for testing purposes
-    autocompletionReq = { locationBias: { lat: 40.630298, lng: -73.923376}, ...autocompletionReq};
+    autocompletionReq = { locationBias: { lat: 40.630298, lng: -73.923376}, locationBiasRadius: 2000, ...autocompletionReq};
 
     placesService.getPlacePredictions(
       autocompletionRequestBuilder(
