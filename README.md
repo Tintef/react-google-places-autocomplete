@@ -69,7 +69,7 @@ export default Component;
     1. Install [yalc](https://github.com/whitecolor/yalc)
     2. Build project with `yarn build` or `npm run build`
     3. Publish the package with yalc: `yalc publish`
-    4. Add the package to your test project `yalc add react-google-places-automocomplete`
+    4. Add the package to your test project `yalc add react-google-places-autocomplete`
     5. If needed, to update the package on your test project: `yalc update react-google-places-autocomplete`
 
 
