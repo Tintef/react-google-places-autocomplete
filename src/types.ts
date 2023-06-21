@@ -13,9 +13,10 @@ export interface LatLng {
 }
 
 export interface AutocompletionRequest {
-  bounds?: [LatLng, LatLng];
+  locationRestriction?: [LatLng, LatLng];
   componentRestrictions?: { country: string | string[] };
-  location?: LatLng;
+  locationBias?: LatLng;
+  locationBiasRadius?: number;
   offset?: number;
   radius?: number;
   types?: string[];

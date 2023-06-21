@@ -454,10 +454,10 @@
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.39.tgz"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/google.maps@^3.50.4":
-  version "3.50.5"
-  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.50.5.tgz"
-  integrity sha512-RuZf1MJtctGlpW+Gd4a/eGtAufUDjMf+eyN1l+B3fbe2YLScJbg8KEljJfb+6vnSPFAeM1/48geVIEg3vqOkxw==
+"@types/google.maps@^3.53.4":
+  version "3.53.4"
+  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.4.tgz"
+  integrity sha512-IiDAYTONQEKCBssPtoM0XqWF8YIIk2leba4NOf9qVQ/d8l5gLuS3QT87TrX6/u8rMonQAXC9KEDmM4q7sT6MWg==
 
 "@types/json-schema@^7.0.3":
   version "7.0.9"

@@ -1,11 +1,10 @@
 {
   "name": "react-google-places-autocomplete",
-  "version": "4.0.1",
+  "version": "4.0.4",
   "description": "Google places autocomplete input for ReactJS.",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "scripts": {
-    "prepare": "npm run build",
     "build": "rollup -c",
     "postbuild": "node ./build-utils/postBuild",
     "lint": "eslint . --ext ts,tsx ."
@@ -52,7 +51,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.14.3",
-    "@types/google.maps": "^3.50.4",
+    "@types/google.maps": "^3.53.4",
     "react-select": "^5.7.2",
     "use-debounce": "^3.4.3"
   },
