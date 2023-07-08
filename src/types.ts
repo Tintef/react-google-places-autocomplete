@@ -12,6 +12,13 @@ export interface LatLng {
   lng: number;
 }
 
+export interface LocationRestriction {
+  north?: number,
+  south?: number,
+  west?: number,
+  east?: number,
+}
+
 export interface AutocompletionRequest {
   bounds?: [LatLng, LatLng];
   componentRestrictions?: { country: string | string[] };
@@ -19,6 +26,8 @@ export interface AutocompletionRequest {
   offset?: number;
   radius?: number;
   types?: string[];
+  locationRestriction?: LocationRestriction
+
 }
 
 export type Option = {
