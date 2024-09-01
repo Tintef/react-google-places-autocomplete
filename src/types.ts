@@ -7,20 +7,6 @@ export type GooglePlacesAutocompleteHandle = {
   refreshSessionToken: () => void;
 }
 
-export interface LatLng {
-  lat: number;
-  lng: number;
-}
-
-export interface AutocompletionRequest {
-  bounds?: [LatLng, LatLng];
-  componentRestrictions?: { country: string | string[] };
-  location?: LatLng;
-  offset?: number;
-  radius?: number;
-  types?: string[];
-}
-
 export type Option = {
   label: string;
   value: any;
@@ -29,7 +15,7 @@ export type Option = {
 export default interface GooglePlacesAutocompleteProps {
   apiKey?: string;
   apiOptions?: Partial<LoaderOptions>;
-  autocompletionRequest?: AutocompletionRequest;
+  autocompletionRequest?: Omit<google.maps.places.AutocompletionRequest, 'input'>;
   debounce?: number;
   minLengthAutocomplete?: number;
   onLoadFailed?: (error: Error) => void;
