@@ -16,7 +16,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
     onLoadFailed: args.onLoadFailed ?? console.error,
   });
   const fetchSuggestions = useFetchSuggestions({
-    autocompletionRequest: args.autocompletionRequest ?? {},
+    autocompletionRequest: args.autocompletionRequest,
     debounce: args.debounce ?? 300,
     minLengthAutocomplete: args.minLengthAutocomplete ?? 0,
     placesService,

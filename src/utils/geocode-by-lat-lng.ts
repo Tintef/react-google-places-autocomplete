@@ -1,6 +1,4 @@
-import { LatLng } from '../types';
-
-const geocodeByLatLng = (latLng: LatLng): Promise<google.maps.GeocoderResult[]> => {
+const geocodeByLatLng = (latLng: google.maps.LatLng): Promise<google.maps.GeocoderResult[]> => {
   const geocoder = new window.google.maps.Geocoder();
   const { OK } = window.google.maps.GeocoderStatus;
 
