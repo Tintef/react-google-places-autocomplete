@@ -35,4 +35,5 @@ export default interface GooglePlacesAutocompleteProps {
   onLoadFailed?: (error: Error) => void;
   selectProps?: AsyncProps<Option, false, GroupBase<Option>>;
   withSessionToken?: boolean;
+  customSuggestions?: Array<Option>;
 }

@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useCallback } from 'react';
 import AsyncSelect from 'react-select/async';
 
 import GooglePlacesAutocompleteProps, { GooglePlacesAutocompleteHandle } from './types';
@@ -24,6 +24,22 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
     withSessionToken: args.withSessionToken ?? false,
   });
 
+  // Create combined loadOptions function
+  const combinedLoadOptions = useCallback((inputValue: string, callback: (options: any[]) => void) => {
+    const customSuggestions = args.customSuggestions || [];
+    
+    // Fetch Google Places suggestions
+    fetchSuggestions(inputValue, (googleSuggestions: any[]) => {
+      // Combine custom suggestions with Google suggestions
+      const combinedSuggestions = [
+        ...customSuggestions,
+        ...googleSuggestions
+      ];
+      
+      callback(combinedSuggestions);
+    });
+  }, [fetchSuggestions, args.customSuggestions]);
+
   useImperativeHandle(ref, () => ({
     getSessionToken: () => {
       return sessionToken;
@@ -36,7 +52,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   return (
     <AsyncSelect
       {...args.selectProps ?? {}}
-      loadOptions={fetchSuggestions}
+      loadOptions={combinedLoadOptions}
       getOptionValue={({ value }) => value.place_id}
     />
   );
